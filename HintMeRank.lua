@@ -5,8 +5,9 @@ local PLAYER_LEVEL = UnitLevel("PLAYER")
 
 local CACHE = {
     -- will be used as cache for the maximum ranks for all spells available at the current player's level (therefor we need to reset that cache when the player levels up)
-    maxSkillRanksAtLevel = {}
-    classSpellIds = {}
+    maxSkillRanksAtLevel = {},
+    classSpellIds = {},
+    notifications = {} -- used as cache for the chat area notifications about outranked spells
 }
 
 local LevelUpEventBus = CreateFrame('Frame')
@@ -14,8 +15,8 @@ LevelUpEventBus:RegisterEvent('PLAYER_LEVEL_UP')
 LevelUpEventBus:SetScript('OnEvent', 
     function(self, event, level) -- param list: level, healthDelta, powerDelta, numNewTalents, numNewPvpTalentSlots, strengthDelta, agilityDelta, staminaDelta, intellectDelta
 
-        print("LEVEL UP!!")
-        print("you are now level " .. level)
+        --print("LEVEL UP!!")
+        --print("you are now level " .. level)
 
         -- set the new level to the global var (that is used at various spots) and reset the cache so functions that use the cache are foreced to re-run their logic
         PLAYER_LEVEL = level -- never use UnitLevel("PLAYER") ... the docs say that this function may return a value that is out of sync and therefor wrong
@@ -33,7 +34,26 @@ SpellWatchEventBus:SetScript("OnEvent",
     function(self, event, unit, target, castGUID, spellID)
         -- https://stackoverflow.com/questions/58754983/how-to-catch-the-event-of-a-instant-or-casting-spell
         if (event == "UNIT_SPELLCAST_SENT" and unit == "player") then
-            print("I am casting:", castGUID, spellID)
+
+            -- prevent notifications for 10 minutes after a notification has been shown
+            if CACHE.notifications[spellID] ~= nil and CACHE.notifications[spellID] > time() - 600 then
+                return
+            else
+                CACHE.notifications[spellID] = nil
+            end
+
+            -- TODO this is mostly copied from the search / print loop... optimize this!
+            -- => create function "isOutranked" or something
+            local actionName = GetSpellInfo(spellID)
+            local actionRank = GetSpellSubtext(spellID)
+            local rank = tonumber(string.match(actionRank, '%S+$'))
+            if rank ~= nil and isClassSpell(spellID) then
+                local max_rank = findMaxAvailableRank(actionName)
+                if rank < max_rank then
+                    print(GetSpellLink(spellID) .. ' Rank ' .. rank .. ' used. Max available rank for you at level ' .. PLAYER_LEVEL .. ' is rank ' .. max_rank .. '!')
+                    CACHE.notifications[spellID] = time()
+                end
+            end
         end
     end
 );
@@ -79,7 +99,7 @@ function PrintOutrankedSpells()
                             --print('max rank for', actionName, 'is', max_rank)
 
                             if rank < max_rank then
-                                print(actionName .. ' @ position ' .. button_index .. ' in ' .. human_readable_bar_name .. ' has rank ' .. rank .. '. Max available rank for you at level ' .. PLAYER_LEVEL .. ' is ' .. max_rank .. '!')
+                                print(GetSpellLink(id) .. ' @ position ' .. button_index .. ' in ' .. human_readable_bar_name .. ' has rank ' .. rank .. '. Max available rank for you at level ' .. PLAYER_LEVEL .. ' is ' .. max_rank .. '!')
                             end
 
                             --print(actionName)
@@ -91,41 +111,35 @@ function PrintOutrankedSpells()
     end
 end
 
---local maxAvailCache = {} -- todo use cache var ....
+function findMaxAvailableRank(spellName)
 
-function findMaxAvailableRank(spell_name)
-
-    if CACHE.maxSkillRanksAtLevel[spell_name] ~= nil then
-        return CACHE.maxSkillRanksAtLevel[spell_name]
+    if CACHE.maxSkillRanksAtLevel[spellName] ~= nil then
+        return CACHE.maxSkillRanksAtLevel[spellName]
     end
 
     local max_rank = -1
-    for level_req_for_spell, sub_table in pairs(_G["SpellsByLevel"]) do
+    for level_req_for_spell, spell_ids in pairs(_G["SpellsByLevel"]) do
         if level_req_for_spell <= PLAYER_LEVEL then
-            for index, skill_row in pairs(sub_table) do
+            for _, skill_id in ipairs(spell_ids) do
 
-                local spell_name_internal = GetSpellInfo(skill_row["id"])
-                --local rank = tonumber(string.match(GetSpellSubtext(skill_row["id"]), '%S+$'))
-
-                --print(spell_name, spell_name_internal, GetSpellSubtext(skill_row["id"]))
-
-                local SpellSubtext = GetSpellSubtext(skill_row["id"])
+                local spell_name = GetSpellInfo(skill_id)
+                local SpellSubtext = GetSpellSubtext(skill_id)
 
                 if(SpellSubtext ~= nil) then
                     local rank = tonumber(string.match(SpellSubtext, '%S+$'))
-                    if spell_name_internal == spell_name then
+                    if spell_name == spellName then
                         if rank > max_rank then
                             max_rank = rank
                         end
                     end
                 end
                 
-                --print(actionName, actionRank)
             end
         end
     end
-    --print('max rank for', spell_name, 'is', max_rank)
-    CACHE.maxSkillRanksAtLevel[spell_name] = max_rank
+
+    CACHE.maxSkillRanksAtLevel[spellName] = max_rank
+
     return max_rank
 end
 
@@ -133,9 +147,9 @@ function isClassSpell(spellId)
     if CACHE.classSpellIds[spellId] ~= nil then
         return CACHE.classSpellIds[spellId]
     end
-    for level_req_for_spell, sub_table in pairs(_G["SpellsByLevel"]) do
-        for index, skill_row in pairs(sub_table) do
-            if skill_row["id"] === spellId then
+    for _, spell_ids in pairs(_G["SpellsByLevel"]) do
+        for _, spell_id in ipairs(spell_ids) do
+            if spell_id == spellId then
                 CACHE.classSpellIds[spellId] = true
                 return true
             end
@@ -153,20 +167,24 @@ end
 
 function TestPrintSkills()
 
-    for level, sub_table in pairs(_G["SpellsByLevel"]) do
+    for level, skill_ids in pairs(_G["SpellsByLevel"]) do
         if level <= PLAYER_LEVEL then
             print("============= \n level: " .. level)
-            for index, skill_row in pairs(sub_table) do
+            --for index, skill_ids in pairs(sub_table) do
+            for _, skill_id in ipairs(skill_ids) do
                 --print(index, skill_row)
                 --for index2, foo in pairs(skill_row) do
                     --print(index2, foo)
                 --end
 
-                local actionName = GetSpellInfo(skill_row["id"])
-                local actionRank = GetSpellSubtext(skill_row["id"])
+                --local actionName = GetSpellInfo(skill_row["id"])
+                --local actionRank = GetSpellSubtext(skill_row["id"])
 
                 --print(skill_row["cost"])
-                print(actionName, actionRank)
+                --print(actionName, actionRank)
+
+                print(skill_id)
+
             end
         end
     end
