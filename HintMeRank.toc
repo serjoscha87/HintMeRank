@@ -1,7 +1,7 @@
-## Interface: 90001
+## Interface: 20501
 ## Title: HintMeRank
-## Version: 1.0
-## Notes: todo
+## Version: 0.6
+## Notes: Informs you about the use of outranked spells and adds an analysis window for outranked spells on your actionbars.
 ## Author: shadowgrind
 
 Classes\Druid.lua
