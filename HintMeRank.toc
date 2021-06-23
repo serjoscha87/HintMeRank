@@ -5,5 +5,15 @@
 ## Author: shadowgrind
 
 Classes\Druid.lua
+Classes\Hunter.lua
+Classes\Paladin.lua
+Classes\Warlock.lua
+Classes\Mage.lua
+Classes\Warrior.lua
+Classes\Shaman.lua
+Classes\Priest.lua
+Classes\Rogue.lua
+
+UI_InfoFrame.lua
 
 HintMeRank.lua
