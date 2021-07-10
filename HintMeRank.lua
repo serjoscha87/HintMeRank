@@ -77,7 +77,7 @@ function PrintOutrankedSpells() -- + push messages to the ui window
             local button = _G[barName .. 'Button' .. button_index]
             local slot = ActionButton_GetPagedID(button) or ActionButton_CalculateAction(button) or button:GetAttribute('action') or 0
             if HasAction(slot) then
-                local actionName, actionRank, _ -- _ => wozu ??
+                local actionName, actionRank
                 --local actionType, id = GetActionInfo(slot)
                 local actionType, id, actionSubType = GetActionInfo(slot) -- TODO refacter ID: call it spellId or so
 
