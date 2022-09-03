@@ -9,3 +9,4 @@ Warrior.lua
 Shaman.lua
 Priest.lua
 Rogue.lua
+Deathknight.lua

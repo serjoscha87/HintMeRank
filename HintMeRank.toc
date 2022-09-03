@@ -1,6 +1,6 @@
-## Interface: 20501
+## Interface: 30400
 ## Title: HintMeRank
-## Version: 0.6.1
+## Version: 1.0.0
 ## Notes: Informs you about the use of outranked spells and adds an analysis window for outranked spells on your actionbars.
 ## Author: shadowgrind
 
@@ -13,6 +13,7 @@ Classes\Warrior.lua
 Classes\Shaman.lua
 Classes\Priest.lua
 Classes\Rogue.lua
+Classes\Deathknight.lua
 
 UI_InfoFrame.lua
 
