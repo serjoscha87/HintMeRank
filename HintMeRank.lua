@@ -12,6 +12,14 @@ local CACHE = {
     --outrankedSpellsUsedCOUNT = 0
 }
 
+local AddonLoadedEventBus = CreateFrame('Frame')
+AddonLoadedEventBus:RegisterEvent("ADDON_LOADED")
+AddonLoadedEventBus:SetScript('OnEvent', function(self, event, addonName)
+    if NotificationDelay ~= nil and addonName == "HintMeRank" then
+        NotificationDelay = 10
+    end
+end)
+
 local LevelUpEventBus = CreateFrame('Frame')
 LevelUpEventBus:RegisterEvent('PLAYER_LEVEL_UP')
 LevelUpEventBus:SetScript('OnEvent', 
@@ -28,8 +36,8 @@ SpellWatchEventBus:SetScript("OnEvent", -- WHEN PLAYER CASTS A SPELL
     function(self, event, unit, target, castGUID, spellID)
         -- https://stackoverflow.com/questions/58754983/how-to-catch-the-event-of-a-instant-or-casting-spell
         if (event == "UNIT_SPELLCAST_SENT" and unit == "player") then 
-            -- prevent notifications for 10 minutes after a notification has been shown
-            if CACHE.notifications[spellID] ~= nil and CACHE.notifications[spellID] > time() - 600 then
+            -- prevent notifications for x minutes after a notification has been shown
+            if CACHE.notifications[spellID] ~= nil and CACHE.notifications[spellID] > time() - (NotificationDelay*60) then
                 return
             else
                 CACHE.notifications[spellID] = nil
@@ -46,13 +54,35 @@ SpellWatchEventBus:SetScript("OnEvent", -- WHEN PLAYER CASTS A SPELL
             if rank ~= nil and isClassSpell(spellID) then
                 local max_rank, max_rank_spell_id = findMaxAvailableRank(actionName)
                 if rank < max_rank then
-                    print(string.format(i18n["outranked spell used"], GetSpellLink(spellID), actionRank, PLAYER_LEVEL, GetSpellLink(max_rank_spell_id), GetSpellSubtext(max_rank_spell_id)))
+                    print(string.format(i18n["outranked spell used chat"], GetSpellLink(spellID), actionRank, PLAYER_LEVEL, GetSpellLink(max_rank_spell_id), GetSpellSubtext(max_rank_spell_id)))
+                    fadingFrame:AddMessage(string.format(i18n["outranked spell used fading"], actionName, actionRank, PLAYER_LEVEL, GetSpellSubtext(max_rank_spell_id))) 
                     CACHE.notifications[spellID] = time()
                 end
             end
         end
     end
 )
+
+-- coming next: watch other players spell casts
+--[[
+SpellWatchEventBus:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+SpellWatchEventBus:SetScript("OnEvent", function(...) 
+    --if 
+    --    _G.bit.band(sourceFlags, COMBATLOG_OBJECT_TYPE_MASK) == COMBATLOG_OBJECT_TYPE_PLAYER and subevent:match("^SPELL") and subevent ~= "SPELL_AURA_REMOVED"
+    --then
+        local timestamp, subevent, _, sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName, destFlags, destRaidFlags = ...
+        local spellId, spellName, spellSchool
+        local amount, overkill, school, resisted, blocked, absorbed, critical, glancing, crushing, isOffHand
+
+        if subevent == "SWING_DAMAGE" then
+            amount, overkill, school, resisted, blocked, absorbed, critical, glancing, crushing, isOffHand = select(12, ...)
+        elseif subevent == "SPELL_DAMAGE" then
+            spellId, spellName, spellSchool, amount, overkill, school, resisted, blocked, absorbed, critical, glancing, crushing, isOffHand = select(12, ...)
+            print (sourceName .. " has casted " .. spellName .. " " .. GetSpellSubtext(spellId) )
+        end
+    --end
+end)
+]]--
 
 infoRowsData = {
     -- map with:
@@ -172,22 +202,30 @@ function isClassSpell(spellId)
     return false
 end
 
---
--- main frame init
---
-createNewFrame()
--- info label
-f:CreateFontString("allSpellsMaxRankInfoText", "ARTWORK", "GameFontNormal") -- From doc: 1. param: The name for a global variable that points to the newly created font string. If nil, the texture is anonymous and no global variable will be created.
-allSpellsMaxRankInfoText:SetText(i18n["all spells on max rank"])
-allSpellsMaxRankInfoText:SetPoint("CENTER")
-allSpellsMaxRankInfoText:Hide()
+mainFrameInitialized = false
 
 --
 -- register slash commands
 --
 SLASH_HINTMERANK1, SLASH_HINTMERANK2 = '/hmr', '/hintmerank';
-SlashCmdList["HINTMERANK"] = function()
-    collectOutrankedSpells()
-    renderInfoRows()
-    f:Show()
+SlashCmdList["HINTMERANK"] = function(paramStr)
+    local cmd, cmd_param = paramStr:match("^(%S*)%s*(.-)$")
+     -- dump shami skills
+    if cmd == "dump" then
+        if cmd_param == "shaman" then
+            print ("NYI: dump shaman spells")
+        elseif cmd_param == "paladin" then
+            print("NYI: dump pala spells")
+        end
+    elseif cmd == "notification-delay" then
+        NotificationDelay = cmd_param
+    else
+        if mainFrameInitialized == false then
+            createMainWindow()
+            mainFrameInitialized = true
+        end
+        collectOutrankedSpells()
+        renderInfoRows()
+        f:Show()
+    end
 end 

@@ -77,8 +77,6 @@ function renderInfoRows()
 
             -- UP-RANK BTN
             infoRowsUi[rowIndex]["uprankBtn"] = CreateFrame("Button", nil, infoRowsUi[rowIndex]["container"], "UIPanelButtonTemplate")
-            infoRowsUi[rowIndex]["uprankBtn"]:SetText(i18n["info row chunks"][3]) -- static text
-            infoRowsUi[rowIndex]["uprankBtn"]:SetSize(infoRowsUi[rowIndex]["uprankBtn"]:GetTextWidth()+20, 22)
 
         end
 
@@ -142,6 +140,14 @@ function renderInfoRows()
 
         -- UP-RANK BTN
         infoRowsUi[rowIndex]["uprankBtn"]:SetPoint("LEFT", nextElemPos, 0)
+        if IsSpellKnown(maxRankSpellId) then 
+            infoRowsUi[rowIndex]["uprankBtn"]:Enable()
+            infoRowsUi[rowIndex]["uprankBtn"]:SetText(i18n["info row chunks"][3])
+        else
+            infoRowsUi[rowIndex]["uprankBtn"]:Disable()
+            infoRowsUi[rowIndex]["uprankBtn"]:SetText(i18n["info row chunks"][4])
+        end
+        infoRowsUi[rowIndex]["uprankBtn"]:SetSize(infoRowsUi[rowIndex]["uprankBtn"]:GetTextWidth()+20, 22)
         infoRowsUi[rowIndex]["uprankBtn"]:SetScript("OnClick", function()
             if IsSpellKnown(maxRankSpellId) then 
                 ClearCursor()
@@ -192,7 +198,7 @@ function renderInfoRows()
 end
 
 mainFrameBounds = {400, 200}
-function createNewFrame()
+function createMainWindow()
     f = CreateFrame("Frame", "HMRMainFrame", UIParent, BackdropTemplateMixin and "BackdropTemplate")
     tinsert(UISpecialFrames, f:GetName()) -- make frame closeable with esc
     f:SetSize(mainFrameBounds[1], mainFrameBounds[2])
@@ -228,5 +234,25 @@ function createNewFrame()
     frameHeadline:SetText("HintMeRank")
     frameHeadline:SetPoint("TOPLEFT", 10, -15)
 
+    -- info label
+    f:CreateFontString("allSpellsMaxRankInfoText", "ARTWORK", "GameFontNormal") -- From doc: 1. param: The name for a global variable that points to the newly created font string. If nil, the texture is anonymous and no global variable will be created.
+    allSpellsMaxRankInfoText:SetText(i18n["all spells on max rank"])
+    allSpellsMaxRankInfoText:SetPoint("CENTER")
+    allSpellsMaxRankInfoText:Hide()
+
     f:Hide()
 end
+
+--
+-- Frame for the fading info messages in the middle of the screen
+--
+fadingFrame = CreateFrame("ScrollingMessageFrame", nil, UIParent)
+fadingFrame:SetPoint("CENTER")
+fadingFrame:SetSize(800,100)
+fadingFrame:SetTimeVisible(8); -- seconds
+fadingFrame:SetFading(true)
+fadingFrame:SetMaxLines(10);
+fadingFrame:SetFontObject(GameFontNormal);
+fadingFrame:SetIndentedWordWrap(true);
+fadingFrame:SetJustifyH("CENTER")
+fadingFrame:SetTextScale(8)
