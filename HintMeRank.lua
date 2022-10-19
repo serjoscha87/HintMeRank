@@ -55,34 +55,14 @@ SpellWatchEventBus:SetScript("OnEvent", -- WHEN PLAYER CASTS A SPELL
                 local max_rank, max_rank_spell_id = findMaxAvailableRank(actionName)
                 if rank < max_rank then
                     print(string.format(i18n["outranked spell used chat"], GetSpellLink(spellID), actionRank, PLAYER_LEVEL, GetSpellLink(max_rank_spell_id), GetSpellSubtext(max_rank_spell_id)))
-                    fadingFrame:AddMessage(string.format(i18n["outranked spell used fading"], actionName, actionRank, PLAYER_LEVEL, GetSpellSubtext(max_rank_spell_id))) 
+                    fadingFrame:AddMessage(string.format(i18n["outranked spell used fading"], actionName, actionRank, PLAYER_LEVEL, GetSpellSubtext(max_rank_spell_id)))
                     CACHE.notifications[spellID] = time()
+                    PlaySound(3175)
                 end
             end
         end
     end
 )
-
--- coming next: watch other players spell casts
---[[
-SpellWatchEventBus:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
-SpellWatchEventBus:SetScript("OnEvent", function(...) 
-    --if 
-    --    _G.bit.band(sourceFlags, COMBATLOG_OBJECT_TYPE_MASK) == COMBATLOG_OBJECT_TYPE_PLAYER and subevent:match("^SPELL") and subevent ~= "SPELL_AURA_REMOVED"
-    --then
-        local timestamp, subevent, _, sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName, destFlags, destRaidFlags = ...
-        local spellId, spellName, spellSchool
-        local amount, overkill, school, resisted, blocked, absorbed, critical, glancing, crushing, isOffHand
-
-        if subevent == "SWING_DAMAGE" then
-            amount, overkill, school, resisted, blocked, absorbed, critical, glancing, crushing, isOffHand = select(12, ...)
-        elseif subevent == "SPELL_DAMAGE" then
-            spellId, spellName, spellSchool, amount, overkill, school, resisted, blocked, absorbed, critical, glancing, crushing, isOffHand = select(12, ...)
-            print (sourceName .. " has casted " .. spellName .. " " .. GetSpellSubtext(spellId) )
-        end
-    --end
-end)
-]]--
 
 infoRowsData = {
     -- map with:
@@ -169,11 +149,15 @@ function findMaxAvailableRank(spellName)
 
                 if(SpellSubtext ~= nil) then
                     local rank = tonumber(string.match(SpellSubtext, '%S+$'))
-                    if spell_name == spellName then
-                        if rank > max_rank then
-                            max_rank = rank
-                            max_rank_spell_id = skill_id
+                    if spell_name ~= nil then -- on mages at some level this line caueses lua erros - however this var MAY BE empty... so lets check for this
+                        if spell_name == spellName then
+                            if rank > max_rank then
+                                max_rank = rank
+                                max_rank_spell_id = skill_id
+                            end
                         end
+                    else
+                        max_rank = 1 -- TODO this seems to cause problems - perhaps return nil and check for nil within the functions that call findMaxAvailRank..
                     end
                 end
                 
@@ -217,8 +201,17 @@ SlashCmdList["HINTMERANK"] = function(paramStr)
         elseif cmd_param == "paladin" then
             print("NYI: dump pala spells")
         end
-    elseif cmd == "notification-delay" then
-        NotificationDelay = cmd_param
+    elseif cmd == "notification-delay" or cmd == "nd" then
+        if cmd_param == "get" then
+            print("Notification-Delay: " .. NotificationDelay)
+        else
+            NotificationDelay = cmd_param
+        end
+    elseif cmd == "cache" then
+        if cmd_param == "clear" then
+            CACHE.maxSkillRanksAtLevel = {}
+            print("HMR: Cache cleared")
+        end
     else
         if mainFrameInitialized == false then
             createMainWindow()
