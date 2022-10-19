@@ -255,4 +255,4 @@ fadingFrame:SetMaxLines(10);
 fadingFrame:SetFontObject(GameFontNormal);
 fadingFrame:SetIndentedWordWrap(true);
 fadingFrame:SetJustifyH("CENTER")
-fadingFrame:SetTextScale(8)
+--fadingFrame:SetTextScale(8)
