@@ -49,22 +49,22 @@ SpellsByLevel = {
 	[42] = {1857,6774,11267},
 	-- Rupture (Rank 4), Backstab (Rank 6)
 	[44] = {11273,11279},
-	-- Garrote (Rank 5), Sinister Strike (Rank 7)
-	[46] = {11289,11293},
+	-- Garrote (Rank 5), Sinister Strike (Rank 7), Hemorrhage (Rank 2)
+	[46] = {11289,11293,17347},
 	-- Sap (Rank 3), Eviscerate (Rank 7)
 	[48] = {11297,11299},
-	-- Kidney Shot (Rank 2), Ambush (Rank 5), Evasion (Rank 2)
-	[50] = {8643,11268,26669},
+	-- Kidney Shot (Rank 2), Ambush (Rank 5), Evasion (Rank 2), Mutilate (Rank 2)
+	[50] = {8643,11268,26669,34411},
 	-- Rupture (Rank 5), Backstab (Rank 7), Feint (Rank 4)
 	[52] = {11274,11280,11303},
 	-- Garrote (Rank 6), Sinister Strike (Rank 8)
 	[54] = {11290,11294},
 	-- Eviscerate (Rank 8)
 	[56] = {11300},
-	-- Ambush (Rank 6), Sprint (Rank 3)
-	[58] = {11269,11305},
-	-- Rupture (Rank 6), Backstab (Rank 8), Backstab (Rank 9), Feint (Rank 5), Eviscerate (Rank 9)
-	[60] = {11275,11281,25300,25302,31016},
+	-- Ambush (Rank 6), Sprint (Rank 3), Hemorrhage (Rank 3)
+	[58] = {11269,11305,17348},
+	-- Rupture (Rank 6), Backstab (Rank 8), Backstab (Rank 9), Feint (Rank 5), Eviscerate (Rank 9), Mutilate (Rank 3)
+	[60] = {11275,11281,25300,25302,31016,34412},
 	-- Garrote (Rank 7)
 	[61] = {26839},
 	-- Sinister Strike (Rank 9), Vanish (Rank 3), Envenom (Rank 1)
@@ -77,8 +77,8 @@ SpellsByLevel = {
 	[68] = {26863,26867},
 	-- Envenom (Rank 2)
 	[69] = {32684},
-	-- Shiv, Sinister Strike (Rank 10), Garrote (Rank 8), Deadly Throw (Rank 2), Ambush (Rank 8)
-	[70] = {5938,26862,26884,48673,48689},
+	-- Shiv, Sinister Strike (Rank 10), Garrote (Rank 8), Deadly Throw (Rank 2), Ambush (Rank 8), Hemorrhage (Rank 4), Mutilate (Rank 4)
+	[70] = {5938,26862,26884,48673,48689,26864,34413},
 	-- Sap (Rank 4)
 	[71] = {51724},
 	-- Feint (Rank 7)
@@ -87,14 +87,14 @@ SpellsByLevel = {
 	[73] = {48667},
 	-- Backstab (Rank 11), Rupture (Rank 8), Envenom (Rank 3)
 	[74] = {48656,48671,57992},
-	-- Garrote (Rank 9), Ambush (Rank 9), Tricks of the Trade
-	[75] = {48675,48690,57934},
+	-- Garrote (Rank 9), Ambush (Rank 9), Tricks of the Trade, Mutilate (Rank 5)
+	[75] = {48675,48690,57934,48663},
 	-- Sinister Strike (Rank 11), Deadly Throw (Rank 3)
 	[76] = {48637,48674},
 	-- Feint (Rank 8)
 	[78] = {48659},
 	-- Eviscerate (Rank 12), Rupture (Rank 9)
 	[79] = {48668,48672},
-	-- Sinister Strike (Rank 12), Backstab (Rank 12), Garrote (Rank 10), Ambush (Rank 10), Fan of Knives, Envenom (Rank 4)
-	[80] = {48638,48657,48676,48691,51723,57993}
+	-- Sinister Strike (Rank 12), Backstab (Rank 12), Garrote (Rank 10), Ambush (Rank 10), Fan of Knives, Envenom (Rank 4), Hemorrhage (Rank 5), Mutilate (Rank 6)
+	[80] = {48638,48657,48676,48691,51723,57993,48660,48666}
 }

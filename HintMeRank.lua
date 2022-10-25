@@ -15,8 +15,16 @@ local CACHE = {
 local AddonLoadedEventBus = CreateFrame('Frame')
 AddonLoadedEventBus:RegisterEvent("ADDON_LOADED")
 AddonLoadedEventBus:SetScript('OnEvent', function(self, event, addonName)
-    if NotificationDelay ~= nil and addonName == "HintMeRank" then
-        NotificationDelay = 10
+    if addonName == "HintMeRank" then
+        if NotificationDelay == nil then
+            NotificationDelay = 10
+        end
+        print(
+            string.format(
+                "|cffFFFF00%s|r", 
+                "HintMeRank loaded. Type /hmr to analyze your actionbars.\nCurrent notification delay is: " .. NotificationDelay
+            )
+        )
     end
 end)
 

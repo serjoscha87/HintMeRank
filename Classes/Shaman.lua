@@ -67,8 +67,8 @@ SpellsByLevel = {
 	[56] = {10396,10432,10497,10587,10605,15208,16342},
 	-- Stoneclaw Totem (Rank 6), Frost Shock (Rank 4), Fire Resistance Totem (Rank 3), Frostbrand Weapon (Rank 5), Flametongue Totem (Rank 4)
 	[58] = {10428,10473,10538,16356,16387},
-	-- Earth Shock (Rank 7), Searing Totem (Rank 6), Healing Stream Totem (Rank 5), Lesser Healing Wave (Rank 6), Nature Resistance Totem (Rank 3), Windfury Weapon (Rank 4), Ancestral Spirit (Rank 5), Healing Wave (Rank 10), Strength of Earth Totem (Rank 5), Flame Shock (Rank 6), Earthliving Weapon (Rank 4)
-	[60] = {10414,10438,10463,10468,10601,16362,20777,25357,25361,29228,51992},
+	-- Earth Shock (Rank 7), Searing Totem (Rank 6), Healing Stream Totem (Rank 5), Lesser Healing Wave (Rank 6), Nature Resistance Totem (Rank 3), Windfury Weapon (Rank 4), Ancestral Spirit (Rank 5), Healing Wave (Rank 10), Strength of Earth Totem (Rank 5), Flame Shock (Rank 6), Earthliving Weapon (Rank 4), Earth Shield (Rank 2), Totem of Wrath (Rank 2)
+	[60] = {10414,10438,10463,10468,10601,16362,20777,25357,25361,29228,51992,32593,57720},
 	-- Chain Heal (Rank 4), Fire Nova (Rank 6), Fire Nova (Rank 6)
 	[61] = {25422,25535,25546},
 	-- Water Shield (Rank 7), Lightning Bolt (Rank 11)
@@ -87,8 +87,8 @@ SpellsByLevel = {
 	[68] = {2894,25423,25464,25505,25563},
 	-- Earth Shock (Rank 8), Searing Totem (Rank 7), Healing Stream Totem (Rank 6), Nature Resistance Totem (Rank 4), Ancestral Spirit (Rank 6), Water Shield (Rank 8)
 	[69] = {25454,25533,25567,25574,25590,33736},
-	-- Bloodlust, Healing Wave (Rank 12), Chain Lightning (Rank 6), Flame Shock (Rank 7), Lightning Shield (Rank 9), Stoneskin Totem (Rank 8), Fire Nova (Rank 7), Fire Nova (Rank 7), Heroism, Earthliving Weapon (Rank 5)
-	[70] = {2825,25396,25442,25457,25472,25509,25537,25547,32182,51993},
+	-- Bloodlust, Healing Wave (Rank 12), Chain Lightning (Rank 6), Flame Shock (Rank 7), Lightning Shield (Rank 9), Stoneskin Totem (Rank 8), Fire Nova (Rank 7), Fire Nova (Rank 7), Heroism, Earthliving Weapon (Rank 5), Earth Shield (Rank 3), Totem of Wrath (Rank 3), Thunderstorm (Rank 2), Riptide (Rank 2)
+	[70] = {2825,25396,25442,25457,25472,25509,25537,25547,32182,51993,32594,57721,59156,61299},
 	-- Stoneclaw Totem (Rank 8), Flametongue Totem (Rank 6), Searing Totem (Rank 8), Healing Stream Totem (Rank 7), Mana Spring Totem (Rank 6), Flametongue Weapon (Rank 8), Frostbrand Weapon (Rank 7), Windfury Weapon (Rank 6)
 	[71] = {58580,58649,58699,58755,58771,58785,58794,58801},
 	-- Lesser Healing Wave (Rank 8)
@@ -97,8 +97,8 @@ SpellsByLevel = {
 	[73] = {49235,49237,58731,58751},
 	-- Earth Shock (Rank 9), Chain Lightning (Rank 7), Chain Heal (Rank 6)
 	[74] = {49230,49270,55458},
-	-- Flame Shock (Rank 8), Healing Wave (Rank 13), Lightning Shield (Rank 10), Lava Burst (Rank 1), Strength of Earth Totem (Rank 7), Stoneclaw Totem (Rank 9), Flametongue Totem (Rank 7), Searing Totem (Rank 9), Fire Resistance Totem (Rank 5), Frost Resistance Totem (Rank 5), Nature Resistance Totem (Rank 5), Fire Nova (Rank 8), Fire Nova (Rank 8)
-	[75] = {49232,49272,49280,51505,57622,58581,58652,58703,58737,58741,58746,61649,61650},
+	-- Flame Shock (Rank 8), Healing Wave (Rank 13), Lightning Shield (Rank 10), Lava Burst (Rank 1), Strength of Earth Totem (Rank 7), Stoneclaw Totem (Rank 9), Flametongue Totem (Rank 7), Searing Totem (Rank 9), Fire Resistance Totem (Rank 5), Frost Resistance Totem (Rank 5), Nature Resistance Totem (Rank 5), Fire Nova (Rank 8), Fire Nova (Rank 8), Earth Shield (Rank 4), Thunderstorm (Rank 3), Riptide (Rank 3)
+	[75] = {49232,49272,49280,51505,57622,58581,58652,58703,58737,58741,58746,61649,61650,49283,59158,61300},
 	-- Water Shield (Rank 9), Healing Stream Totem (Rank 8), Mana Spring Totem (Rank 7), Flametongue Weapon (Rank 9), Frostbrand Weapon (Rank 8), Windfury Weapon (Rank 7)
 	[76] = {57960,58756,58773,58789,58795,58803},
 	-- Lesser Healing Wave (Rank 9)
@@ -107,6 +107,6 @@ SpellsByLevel = {
 	[78] = {49236,58582,58734,58753},
 	-- Earth Shock (Rank 10), Lightning Bolt (Rank 14)
 	[79] = {49231,49238},
-	-- Flame Shock (Rank 9), Chain Lightning (Rank 8), Healing Wave (Rank 14), Ancestral Spirit (Rank 7), Lightning Shield (Rank 11), Hex, Earthliving Weapon (Rank 6), Chain Heal (Rank 7), Strength of Earth Totem (Rank 8), Flametongue Totem (Rank 8), Searing Totem (Rank 10), Fire Resistance Totem (Rank 6), Frost Resistance Totem (Rank 6), Nature Resistance Totem (Rank 6), Healing Stream Totem (Rank 9), Mana Spring Totem (Rank 8), Flametongue Weapon (Rank 10), Frostbrand Weapon (Rank 9), Windfury Weapon (Rank 8), Lava Burst (Rank 2), Fire Nova (Rank 9), Fire Nova (Rank 9)
-	[80] = {49233,49271,49273,49277,49281,51514,51994,55459,58643,58656,58704,58739,58745,58749,58757,58774,58790,58796,58804,60043,61654,61657}
+	-- Flame Shock (Rank 9), Chain Lightning (Rank 8), Healing Wave (Rank 14), Ancestral Spirit (Rank 7), Lightning Shield (Rank 11), Hex, Earthliving Weapon (Rank 6), Chain Heal (Rank 7), Strength of Earth Totem (Rank 8), Flametongue Totem (Rank 8), Searing Totem (Rank 10), Fire Resistance Totem (Rank 6), Frost Resistance Totem (Rank 6), Nature Resistance Totem (Rank 6), Healing Stream Totem (Rank 9), Mana Spring Totem (Rank 8), Flametongue Weapon (Rank 10), Frostbrand Weapon (Rank 9), Windfury Weapon (Rank 8), Lava Burst (Rank 2), Fire Nova (Rank 9), Fire Nova (Rank 9), Earth Shield (Rank 5), Totem of Wrath (Rank 4), Thunderstorm (Rank 4), Riptide (Rank 4)
+	[80] = {49233,49271,49273,49277,49281,51514,51994,55459,58643,58656,58704,58739,58745,58749,58757,58774,58790,58796,58804,60043,61654,61657,49284,57722,59159,61301}
 }
