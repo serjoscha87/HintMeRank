@@ -22,6 +22,7 @@ AddonLoadedEventBus:SetScript('OnEvent', function(self, event, addonName)
     if addonName == "HintMeRank" then
         if type(NotificationDelay) ~= "number" then
             NotificationDelay = 10
+            print(string.format("|cffFF0000[HMR] Broken Notification-Delay fixed! Resetted to 10 minutes again.|r"))
         end
     end
 end)
