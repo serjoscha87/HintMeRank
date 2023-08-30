@@ -2,105 +2,1043 @@ local currentClass = select(2, UnitClass("player"))
 
 if (currentClass ~= "HUNTER") then
 	return
-end
+end 
 
-SpellsByLevel = {
-	-- Auto Shot, Track Beasts, Raptor Strike (Rank 1)
-	[1] = {75,1494,2973},
-	-- Serpent Sting (Rank 1), Aspect of the Monkey
-	[4] = {1978,13163},
-	-- Hunter's Mark (Rank 1), Arcane Shot (Rank 1)
-	[6] = {1130,3044},
-	-- Concussive Shot, Raptor Strike (Rank 2)
-	[8] = {5116,14260},
-	-- Call Pet, Revive Pet, Tame Beast, Dismiss Pet, Feed Pet, Aspect of the Hawk (Rank 1), Serpent Sting (Rank 2), Track Humanoids
-	[10] = {883,982,1515,2641,6991,13165,13549,19883},
-	-- Mend Pet (Rank 1), Wing Clip, Arcane Shot (Rank 2), Distracting Shot (Rank 1)
-	[12] = {136,2974,14281,20736},
-	-- Eyes of the Beast, Scare Beast (Rank 1), Eagle Eye
-	[14] = {1002,1513,6197},
-	-- Mongoose Bite (Rank 1), Aspect of the Cheetah, Immolation Trap (Rank 1), Raptor Strike (Rank 3)
-	[16] = {1495,5118,13795,14261},
-	-- Multi-Shot (Rank 1), Serpent Sting (Rank 3), Aspect of the Hawk (Rank 2), Track Undead
-	[18] = {2643,13550,14318,19884},
-	-- Disengage, Freezing Trap (Rank 1), Mend Pet (Rank 2), Arcane Shot (Rank 3), Aspect of the Viper
-	[20] = {781,1499,3111,14282,34074},
-	-- Scorpid Sting, Hunter's Mark (Rank 2)
-	[22] = {3043,14323},
-	-- Beast Lore, Raptor Strike (Rank 4), Track Hidden
-	[24] = {1462,14262,19885},
-	-- Rapid Fire, Serpent Sting (Rank 4), Immolation Trap (Rank 2), Track Elementals
-	[26] = {3045,13551,14302,19880},
-	-- Mend Pet (Rank 3), Frost Trap, Arcane Shot (Rank 4), Aspect of the Hawk (Rank 3)
-	[28] = {3661,13809,14283,14319},
-	-- Feign Death, Aspect of the Beast, Mongoose Bite (Rank 2), Multi-Shot (Rank 2), Scare Beast (Rank 2)
-	[30] = {5384,13161,14269,14288,14326},
-	-- Flare, Raptor Strike (Rank 5), Track Demons
-	[32] = {1543,14263,19878},
-	-- Serpent Sting (Rank 5), Explosive Trap (Rank 1)
-	[34] = {13552,13813},
-	-- Viper Sting, Mend Pet (Rank 4), Arcane Shot (Rank 5), Immolation Trap (Rank 3)
-	[36] = {3034,3662,14284,14303},
-	-- Aspect of the Hawk (Rank 4)
-	[38] = {14320},
-	-- Volley (Rank 1), Aspect of the Pack, Raptor Strike (Rank 6), Freezing Trap (Rank 2), Hunter's Mark (Rank 3), Track Giants
-	[40] = {1510,13159,14264,14310,14324,19882},
-	-- Serpent Sting (Rank 6), Multi-Shot (Rank 3)
-	[42] = {13553,14289},
-	-- Mend Pet (Rank 5), Mongoose Bite (Rank 3), Arcane Shot (Rank 6), Explosive Trap (Rank 2)
-	[44] = {13542,14270,14285,14316},
-	-- Immolation Trap (Rank 4), Scare Beast (Rank 3), Aspect of the Wild (Rank 1)
-	[46] = {14304,14327,20043},
-	-- Raptor Strike (Rank 7), Aspect of the Hawk (Rank 5)
-	[48] = {14265,14321},
-	-- Serpent Sting (Rank 7), Volley (Rank 2), Track Dragonkin, Steady Shot (Rank 1)
-	[50] = {13554,14294,19879,56641},
-	-- Mend Pet (Rank 6), Arcane Shot (Rank 7)
-	[52] = {13543,14286},
-	-- Multi-Shot (Rank 4), Explosive Trap (Rank 3)
-	[54] = {14290,14317},
-	-- Raptor Strike (Rank 8), Immolation Trap (Rank 5), Aspect of the Wild (Rank 2)
-	[56] = {14266,14305,20190},
-	-- Serpent Sting (Rank 8), Mongoose Bite (Rank 4), Volley (Rank 3), Aspect of the Hawk (Rank 6), Hunter's Mark (Rank 4)
-	[58] = {13555,14271,14295,14322,14325},
-	-- Mend Pet (Rank 7), Arcane Shot (Rank 8), Freezing Trap (Rank 3), Deterrence, Tranquilizing Shot, Multi-Shot (Rank 5), Serpent Sting (Rank 9), Aspect of the Hawk (Rank 7)
-	[60] = {13544,14287,14311,19263,19801,25294,25295,25296},
-	-- Explosive Trap (Rank 4)
-	[61] = {27025},
-	-- Steady Shot (Rank 2)
-	[62] = {34120},
-	-- Raptor Strike (Rank 9)
-	[63] = {27014},
-	-- Immolation Trap (Rank 6)
-	[65] = {27023},
-	-- Kill Command
-	[66] = {34026},
-	-- Serpent Sting (Rank 10), Multi-Shot (Rank 6), Volley (Rank 4)
-	[67] = {27016,27021,27022},
-	-- Aspect of the Hawk (Rank 8), Aspect of the Wild (Rank 3), Mend Pet (Rank 8), Snake Trap
-	[68] = {27044,27045,27046,34600},
-	-- Arcane Shot (Rank 9)
-	[69] = {27019},
-	-- Misdirection, Mongoose Bite (Rank 5)
-	[70] = {34477,36916},
-	-- Raptor Strike (Rank 10), Steady Shot (Rank 3), Explosive Trap (Rank 5), Kill Shot (Rank 1)
-	[71] = {48995,49051,49066,53351},
-	-- Immolation Trap (Rank 7)
-	[72] = {49055},
-	-- Serpent Sting (Rank 11), Arcane Shot (Rank 10)
-	[73] = {49000,49044},
-	-- Mend Pet (Rank 9), Multi-Shot (Rank 7), Volley (Rank 5), Aspect of the Dragonhawk (Rank 1)
-	[74] = {48989,49047,58431,61846},
-	-- Master's Call, Kill Shot (Rank 2)
-	[75] = {53271,61005},
-	-- Aspect of the Wild (Rank 4), Hunter's Mark (Rank 5)
-	[76] = {49071,53338},
-	-- Raptor Strike (Rank 11), Steady Shot (Rank 4), Explosive Trap (Rank 6)
-	[77] = {48996,49052,49067},
-	-- Immolation Trap (Rank 8)
-	[78] = {49056},
-	-- Serpent Sting (Rank 12), Arcane Shot (Rank 11)
-	[79] = {49001,49045},
-	-- Mend Pet (Rank 10), Multi-Shot (Rank 8), Mongoose Bite (Rank 6), Volley (Rank 6), Freezing Arrow (Rank 1), Kill Shot (Rank 3), Aspect of the Dragonhawk (Rank 2), Call Stabled Pet
-	[80] = {48990,49048,53339,58434,60192,61006,61847,62757}
+SpellsById = {
+    ["HUNTER"] = {}
+}
+
+SpellsById["HUNTER"] = {
+    [136] = {
+        ["learnAtLvl"] = 12,
+        ["rank"] = 1,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 20,
+            ["id"] = 3111
+        }
+    },
+    [1130] = {
+        ["learnAtLvl"] = 6,
+        ["rank"] = 1,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 22,
+            ["id"] = 14323
+        }
+    },
+    [1495] = {
+        ["learnAtLvl"] = 16,
+        ["rank"] = 1,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 30,
+            ["id"] = 14269
+        }
+    },
+    [1499] = {
+        ["learnAtLvl"] = 20,
+        ["rank"] = 1,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 40,
+            ["id"] = 14310
+        }
+    },
+    [1510] = {
+        ["learnAtLvl"] = 40,
+        ["rank"] = 1,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 50,
+            ["id"] = 14294
+        }
+    },
+    [1513] = {
+        ["learnAtLvl"] = 14,
+        ["rank"] = 1,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 30,
+            ["id"] = 14326
+        }
+    },
+    [1978] = {
+        ["learnAtLvl"] = 4,
+        ["rank"] = 1,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 10,
+            ["id"] = 13549
+        }
+    },
+    [2643] = {
+        ["learnAtLvl"] = 18,
+        ["rank"] = 1,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 30,
+            ["id"] = 14288
+        }
+    },
+    [2973] = {
+        ["learnAtLvl"] = 1,
+        ["rank"] = 1,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 8,
+            ["id"] = 14260
+        }
+    },
+    [3044] = {
+        ["learnAtLvl"] = 6,
+        ["rank"] = 1,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 12,
+            ["id"] = 14281
+        }
+    },
+    [3111] = {
+        ["learnAtLvl"] = 20,
+        ["rank"] = 2,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 28,
+            ["id"] = 3661
+        }
+    },
+    [3661] = {
+        ["learnAtLvl"] = 28,
+        ["rank"] = 3,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 36,
+            ["id"] = 3662
+        }
+    },
+    [3662] = {
+        ["learnAtLvl"] = 36,
+        ["rank"] = 4,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 44,
+            ["id"] = 13542
+        }
+    },
+    [13165] = {
+        ["learnAtLvl"] = 10,
+        ["rank"] = 1,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 18,
+            ["id"] = 14318
+        }
+    },
+    [13542] = {
+        ["learnAtLvl"] = 44,
+        ["rank"] = 5,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 52,
+            ["id"] = 13543
+        }
+    },
+    [13543] = {
+        ["learnAtLvl"] = 52,
+        ["rank"] = 6,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 60,
+            ["id"] = 13544
+        }
+    },
+    [13544] = {
+        ["learnAtLvl"] = 60,
+        ["rank"] = 7,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 68,
+            ["id"] = 27046
+        }
+    },
+    [13549] = {
+        ["learnAtLvl"] = 10,
+        ["rank"] = 2,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 18,
+            ["id"] = 13550
+        }
+    },
+    [13550] = {
+        ["learnAtLvl"] = 18,
+        ["rank"] = 3,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 26,
+            ["id"] = 13551
+        }
+    },
+    [13551] = {
+        ["learnAtLvl"] = 26,
+        ["rank"] = 4,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 34,
+            ["id"] = 13552
+        }
+    },
+    [13552] = {
+        ["learnAtLvl"] = 34,
+        ["rank"] = 5,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 42,
+            ["id"] = 13553
+        }
+    },
+    [13553] = {
+        ["learnAtLvl"] = 42,
+        ["rank"] = 6,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 50,
+            ["id"] = 13554
+        }
+    },
+    [13554] = {
+        ["learnAtLvl"] = 50,
+        ["rank"] = 7,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 58,
+            ["id"] = 13555
+        }
+    },
+    [13555] = {
+        ["learnAtLvl"] = 58,
+        ["rank"] = 8,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 60,
+            ["id"] = 25295
+        }
+    },
+    [13795] = {
+        ["learnAtLvl"] = 16,
+        ["rank"] = 1,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 26,
+            ["id"] = 14302
+        }
+    },
+    [13813] = {
+        ["learnAtLvl"] = 34,
+        ["rank"] = 1,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 44,
+            ["id"] = 14316
+        }
+    },
+    [14260] = {
+        ["learnAtLvl"] = 8,
+        ["rank"] = 2,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 16,
+            ["id"] = 14261
+        }
+    },
+    [14261] = {
+        ["learnAtLvl"] = 16,
+        ["rank"] = 3,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 24,
+            ["id"] = 14262
+        }
+    },
+    [14262] = {
+        ["learnAtLvl"] = 24,
+        ["rank"] = 4,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 32,
+            ["id"] = 14263
+        }
+    },
+    [14263] = {
+        ["learnAtLvl"] = 32,
+        ["rank"] = 5,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 40,
+            ["id"] = 14264
+        }
+    },
+    [14264] = {
+        ["learnAtLvl"] = 40,
+        ["rank"] = 6,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 48,
+            ["id"] = 14265
+        }
+    },
+    [14265] = {
+        ["learnAtLvl"] = 48,
+        ["rank"] = 7,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 56,
+            ["id"] = 14266
+        }
+    },
+    [14266] = {
+        ["learnAtLvl"] = 56,
+        ["rank"] = 8,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 63,
+            ["id"] = 27014
+        }
+    },
+    [14269] = {
+        ["learnAtLvl"] = 30,
+        ["rank"] = 2,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 44,
+            ["id"] = 14270
+        }
+    },
+    [14270] = {
+        ["learnAtLvl"] = 44,
+        ["rank"] = 3,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 58,
+            ["id"] = 14271
+        }
+    },
+    [14271] = {
+        ["learnAtLvl"] = 58,
+        ["rank"] = 4,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 70,
+            ["id"] = 36916
+        }
+    },
+    [14281] = {
+        ["learnAtLvl"] = 12,
+        ["rank"] = 2,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 20,
+            ["id"] = 14282
+        }
+    },
+    [14282] = {
+        ["learnAtLvl"] = 20,
+        ["rank"] = 3,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 28,
+            ["id"] = 14283
+        }
+    },
+    [14283] = {
+        ["learnAtLvl"] = 28,
+        ["rank"] = 4,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 36,
+            ["id"] = 14284
+        }
+    },
+    [14284] = {
+        ["learnAtLvl"] = 36,
+        ["rank"] = 5,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 44,
+            ["id"] = 14285
+        }
+    },
+    [14285] = {
+        ["learnAtLvl"] = 44,
+        ["rank"] = 6,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 52,
+            ["id"] = 14286
+        }
+    },
+    [14286] = {
+        ["learnAtLvl"] = 52,
+        ["rank"] = 7,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 60,
+            ["id"] = 14287
+        }
+    },
+    [14287] = {
+        ["learnAtLvl"] = 60,
+        ["rank"] = 8,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 69,
+            ["id"] = 27019
+        }
+    },
+    [14288] = {
+        ["learnAtLvl"] = 30,
+        ["rank"] = 2,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 42,
+            ["id"] = 14289
+        }
+    },
+    [14289] = {
+        ["learnAtLvl"] = 42,
+        ["rank"] = 3,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 54,
+            ["id"] = 14290
+        }
+    },
+    [14290] = {
+        ["learnAtLvl"] = 54,
+        ["rank"] = 4,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 60,
+            ["id"] = 25294
+        }
+    },
+    [14294] = {
+        ["learnAtLvl"] = 50,
+        ["rank"] = 2,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 58,
+            ["id"] = 14295
+        }
+    },
+    [14295] = {
+        ["learnAtLvl"] = 58,
+        ["rank"] = 3,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 67,
+            ["id"] = 27022
+        }
+    },
+    [14302] = {
+        ["learnAtLvl"] = 26,
+        ["rank"] = 2,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 36,
+            ["id"] = 14303
+        }
+    },
+    [14303] = {
+        ["learnAtLvl"] = 36,
+        ["rank"] = 3,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 46,
+            ["id"] = 14304
+        }
+    },
+    [14304] = {
+        ["learnAtLvl"] = 46,
+        ["rank"] = 4,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 56,
+            ["id"] = 14305
+        }
+    },
+    [14305] = {
+        ["learnAtLvl"] = 56,
+        ["rank"] = 5,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 65,
+            ["id"] = 27023
+        }
+    },
+    [14310] = {
+        ["learnAtLvl"] = 40,
+        ["rank"] = 2,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 60,
+            ["id"] = 14311
+        }
+    },
+    [14311] = {
+        ["learnAtLvl"] = 60,
+        ["rank"] = 3,
+        ["nextRank"] = nil
+    },
+    [14316] = {
+        ["learnAtLvl"] = 44,
+        ["rank"] = 2,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 54,
+            ["id"] = 14317
+        }
+    },
+    [14317] = {
+        ["learnAtLvl"] = 54,
+        ["rank"] = 3,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 61,
+            ["id"] = 27025
+        }
+    },
+    [14318] = {
+        ["learnAtLvl"] = 18,
+        ["rank"] = 2,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 28,
+            ["id"] = 14319
+        }
+    },
+    [14319] = {
+        ["learnAtLvl"] = 28,
+        ["rank"] = 3,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 38,
+            ["id"] = 14320
+        }
+    },
+    [14320] = {
+        ["learnAtLvl"] = 38,
+        ["rank"] = 4,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 48,
+            ["id"] = 14321
+        }
+    },
+    [14321] = {
+        ["learnAtLvl"] = 48,
+        ["rank"] = 5,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 58,
+            ["id"] = 14322
+        }
+    },
+    [14322] = {
+        ["learnAtLvl"] = 58,
+        ["rank"] = 6,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 60,
+            ["id"] = 25296
+        }
+    },
+    [14323] = {
+        ["learnAtLvl"] = 22,
+        ["rank"] = 2,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 40,
+            ["id"] = 14324
+        }
+    },
+    [14324] = {
+        ["learnAtLvl"] = 40,
+        ["rank"] = 3,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 58,
+            ["id"] = 14325
+        }
+    },
+    [14325] = {
+        ["learnAtLvl"] = 58,
+        ["rank"] = 4,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 76,
+            ["id"] = 53338
+        }
+    },
+    [14326] = {
+        ["learnAtLvl"] = 30,
+        ["rank"] = 2,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 46,
+            ["id"] = 14327
+        }
+    },
+    [14327] = {
+        ["learnAtLvl"] = 46,
+        ["rank"] = 3,
+        ["nextRank"] = nil
+    },
+    [20043] = {
+        ["learnAtLvl"] = 46,
+        ["rank"] = 1,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 56,
+            ["id"] = 20190
+        }
+    },
+    [20190] = {
+        ["learnAtLvl"] = 56,
+        ["rank"] = 2,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 68,
+            ["id"] = 27045
+        }
+    },
+    [20736] = {
+        ["learnAtLvl"] = 12,
+        ["rank"] = 1,
+        ["nextRank"] = nil
+    },
+    [20900] = {
+        ["learnAtLvl"] = 28,
+        ["rank"] = 2,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 36,
+            ["id"] = 20901
+        }
+    },
+    [20901] = {
+        ["learnAtLvl"] = 36,
+        ["rank"] = 3,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 44,
+            ["id"] = 20902
+        }
+    },
+    [20902] = {
+        ["learnAtLvl"] = 44,
+        ["rank"] = 4,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 52,
+            ["id"] = 20903
+        }
+    },
+    [20903] = {
+        ["learnAtLvl"] = 52,
+        ["rank"] = 5,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 60,
+            ["id"] = 20904
+        }
+    },
+    [20904] = {
+        ["learnAtLvl"] = 60,
+        ["rank"] = 6,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 70,
+            ["id"] = 27065
+        }
+    },
+    [20909] = {
+        ["learnAtLvl"] = 42,
+        ["rank"] = 2,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 54,
+            ["id"] = 20910
+        }
+    },
+    [20910] = {
+        ["learnAtLvl"] = 54,
+        ["rank"] = 3,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 66,
+            ["id"] = 27067
+        }
+    },
+    [24132] = {
+        ["learnAtLvl"] = 50,
+        ["rank"] = 2,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 60,
+            ["id"] = 24133
+        }
+    },
+    [24133] = {
+        ["learnAtLvl"] = 60,
+        ["rank"] = 3,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 70,
+            ["id"] = 27068
+        }
+    },
+    [25294] = {
+        ["learnAtLvl"] = 60,
+        ["rank"] = 5,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 67,
+            ["id"] = 27021
+        }
+    },
+    [25295] = {
+        ["learnAtLvl"] = 60,
+        ["rank"] = 9,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 67,
+            ["id"] = 27016
+        }
+    },
+    [25296] = {
+        ["learnAtLvl"] = 60,
+        ["rank"] = 7,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 68,
+            ["id"] = 27044
+        }
+    },
+    [27014] = {
+        ["learnAtLvl"] = 63,
+        ["rank"] = 9,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 71,
+            ["id"] = 48995
+        }
+    },
+    [27016] = {
+        ["learnAtLvl"] = 67,
+        ["rank"] = 10,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 73,
+            ["id"] = 49000
+        }
+    },
+    [27019] = {
+        ["learnAtLvl"] = 69,
+        ["rank"] = 9,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 73,
+            ["id"] = 49044
+        }
+    },
+    [27021] = {
+        ["learnAtLvl"] = 67,
+        ["rank"] = 6,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 74,
+            ["id"] = 49047
+        }
+    },
+    [27022] = {
+        ["learnAtLvl"] = 67,
+        ["rank"] = 4,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 74,
+            ["id"] = 58431
+        }
+    },
+    [27023] = {
+        ["learnAtLvl"] = 65,
+        ["rank"] = 6,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 72,
+            ["id"] = 49055
+        }
+    },
+    [27025] = {
+        ["learnAtLvl"] = 61,
+        ["rank"] = 4,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 71,
+            ["id"] = 49066
+        }
+    },
+    [27044] = {
+        ["learnAtLvl"] = 68,
+        ["rank"] = 8,
+        ["nextRank"] = nil
+    },
+    [27045] = {
+        ["learnAtLvl"] = 68,
+        ["rank"] = 3,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 76,
+            ["id"] = 49071
+        }
+    },
+    [27046] = {
+        ["learnAtLvl"] = 68,
+        ["rank"] = 8,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 74,
+            ["id"] = 48989
+        }
+    },
+    [27065] = {
+        ["learnAtLvl"] = 70,
+        ["rank"] = 7,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 75,
+            ["id"] = 49049
+        }
+    },
+    [27067] = {
+        ["learnAtLvl"] = 66,
+        ["rank"] = 4,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 72,
+            ["id"] = 48998
+        }
+    },
+    [27068] = {
+        ["learnAtLvl"] = 70,
+        ["rank"] = 4,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 75,
+            ["id"] = 49011
+        }
+    },
+    [34120] = {
+        ["learnAtLvl"] = 62,
+        ["rank"] = 2,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 71,
+            ["id"] = 49051
+        }
+    },
+    [36916] = {
+        ["learnAtLvl"] = 70,
+        ["rank"] = 5,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 80,
+            ["id"] = 53339
+        }
+    },
+    [48989] = {
+        ["learnAtLvl"] = 74,
+        ["rank"] = 9,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 80,
+            ["id"] = 48990
+        }
+    },
+    [48990] = {
+        ["learnAtLvl"] = 80,
+        ["rank"] = 10,
+        ["nextRank"] = nil
+    },
+    [48995] = {
+        ["learnAtLvl"] = 71,
+        ["rank"] = 10,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 77,
+            ["id"] = 48996
+        }
+    },
+    [48996] = {
+        ["learnAtLvl"] = 77,
+        ["rank"] = 11,
+        ["nextRank"] = nil
+    },
+    [48998] = {
+        ["learnAtLvl"] = 72,
+        ["rank"] = 5,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 78,
+            ["id"] = 48999
+        }
+    },
+    [48999] = {
+        ["learnAtLvl"] = 78,
+        ["rank"] = 6,
+        ["nextRank"] = nil
+    },
+    [49000] = {
+        ["learnAtLvl"] = 73,
+        ["rank"] = 11,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 79,
+            ["id"] = 49001
+        }
+    },
+    [49001] = {
+        ["learnAtLvl"] = 79,
+        ["rank"] = 12,
+        ["nextRank"] = nil
+    },
+    [49011] = {
+        ["learnAtLvl"] = 75,
+        ["rank"] = 5,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 80,
+            ["id"] = 49012
+        }
+    },
+    [49012] = {
+        ["learnAtLvl"] = 80,
+        ["rank"] = 6,
+        ["nextRank"] = nil
+    },
+    [49044] = {
+        ["learnAtLvl"] = 73,
+        ["rank"] = 10,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 79,
+            ["id"] = 49045
+        }
+    },
+    [49045] = {
+        ["learnAtLvl"] = 79,
+        ["rank"] = 11,
+        ["nextRank"] = nil
+    },
+    [49047] = {
+        ["learnAtLvl"] = 74,
+        ["rank"] = 7,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 80,
+            ["id"] = 49048
+        }
+    },
+    [49048] = {
+        ["learnAtLvl"] = 80,
+        ["rank"] = 8,
+        ["nextRank"] = nil
+    },
+    [49049] = {
+        ["learnAtLvl"] = 75,
+        ["rank"] = 8,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 80,
+            ["id"] = 49050
+        }
+    },
+    [49050] = {
+        ["learnAtLvl"] = 80,
+        ["rank"] = 9,
+        ["nextRank"] = nil
+    },
+    [49051] = {
+        ["learnAtLvl"] = 71,
+        ["rank"] = 3,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 77,
+            ["id"] = 49052
+        }
+    },
+    [49052] = {
+        ["learnAtLvl"] = 77,
+        ["rank"] = 4,
+        ["nextRank"] = nil
+    },
+    [49055] = {
+        ["learnAtLvl"] = 72,
+        ["rank"] = 7,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 78,
+            ["id"] = 49056
+        }
+    },
+    [49056] = {
+        ["learnAtLvl"] = 78,
+        ["rank"] = 8,
+        ["nextRank"] = nil
+    },
+    [49066] = {
+        ["learnAtLvl"] = 71,
+        ["rank"] = 5,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 77,
+            ["id"] = 49067
+        }
+    },
+    [49067] = {
+        ["learnAtLvl"] = 77,
+        ["rank"] = 6,
+        ["nextRank"] = nil
+    },
+    [49071] = {
+        ["learnAtLvl"] = 76,
+        ["rank"] = 4,
+        ["nextRank"] = nil
+    },
+    [53338] = {
+        ["learnAtLvl"] = 76,
+        ["rank"] = 5,
+        ["nextRank"] = nil
+    },
+    [53339] = {
+        ["learnAtLvl"] = 80,
+        ["rank"] = 6,
+        ["nextRank"] = nil
+    },
+    [53351] = {
+        ["learnAtLvl"] = 71,
+        ["rank"] = 1,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 75,
+            ["id"] = 61005
+        }
+    },
+    [56641] = {
+        ["learnAtLvl"] = 50,
+        ["rank"] = 1,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 62,
+            ["id"] = 34120
+        }
+    },
+    [58431] = {
+        ["learnAtLvl"] = 74,
+        ["rank"] = 5,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 80,
+            ["id"] = 58434
+        }
+    },
+    [58434] = {
+        ["learnAtLvl"] = 80,
+        ["rank"] = 6,
+        ["nextRank"] = nil
+    },
+    [60051] = {
+        ["learnAtLvl"] = 70,
+        ["rank"] = 2,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 75,
+            ["id"] = 60052
+        }
+    },
+    [60052] = {
+        ["learnAtLvl"] = 75,
+        ["rank"] = 3,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 80,
+            ["id"] = 60053
+        }
+    },
+    [60053] = {
+        ["learnAtLvl"] = 80,
+        ["rank"] = 4,
+        ["nextRank"] = nil
+    },
+    [60192] = {
+        ["learnAtLvl"] = 80,
+        ["rank"] = 1,
+        ["nextRank"] = nil
+    },
+    [61005] = {
+        ["learnAtLvl"] = 75,
+        ["rank"] = 2,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 80,
+            ["id"] = 61006
+        }
+    },
+    [61006] = {
+        ["learnAtLvl"] = 80,
+        ["rank"] = 3,
+        ["nextRank"] = nil
+    },
+    [61846] = {
+        ["learnAtLvl"] = 74,
+        ["rank"] = 1,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 80,
+            ["id"] = 61847
+        }
+    },
+    [61847] = {
+        ["learnAtLvl"] = 80,
+        ["rank"] = 2,
+        ["nextRank"] = nil
+    },
+    [63668] = {
+        ["learnAtLvl"] = 57,
+        ["rank"] = 2,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 63,
+            ["id"] = 63669
+        }
+    },
+    [63669] = {
+        ["learnAtLvl"] = 63,
+        ["rank"] = 3,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 69,
+            ["id"] = 63670
+        }
+    },
+    [63670] = {
+        ["learnAtLvl"] = 69,
+        ["rank"] = 4,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 75,
+            ["id"] = 63671
+        }
+    },
+    [63671] = {
+        ["learnAtLvl"] = 75,
+        ["rank"] = 5,
+        ["nextRank"] = {
+            ["learnAtLvl"] = 80,
+            ["id"] = 63672
+        }
+    },
+    [63672] = {
+        ["learnAtLvl"] = 80,
+        ["rank"] = 6,
+        ["nextRank"] = nil
+    }
 }

@@ -1,4 +1,4 @@
--- for frames cannot be disposed we need to reuse them - so in order to not have thousands of buttons when some calls the addon multiple times - we need to reuse buttons
+-- for frames cannot be disposed we need to reuse them - so in order to not have thousands of buttons when one calls the ui of the addon multiple times - we need to reuse buttons
 
 infoRowsUi = {} -- NOTE: this ui element holder table can ONLY GROW! (reason: see above)
 infoRowAmount = 0 -- the overall amount of info rows - also this can only grow
