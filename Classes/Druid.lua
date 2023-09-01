@@ -51,12 +51,28 @@ SpellsById = {
                 ["id"] = 9754
             }
         },
+        [770] = {
+            ["learnAtLvl"] = 18,
+            ["rank"] = 1,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 30,
+                ["id"] = 778
+            }
+        },
         [774] = {
             ["learnAtLvl"] = 4,
             ["rank"] = 1,
             ["nextRank"] = {
                 ["learnAtLvl"] = 10,
                 ["id"] = 1058
+            }
+        },
+        [778] = {
+            ["learnAtLvl"] = 30,
+            ["rank"] = 2,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 42,
+                ["id"] = 9749
             }
         },
         [779] = {
@@ -84,7 +100,7 @@ SpellsById = {
             }
         },
         [783] = {
-            ["learnAtLvl"] = 16,
+            ["learnAtLvl"] = 30,
             ["rank"] = nil,
             ["nextRank"] = nil
         },
@@ -357,6 +373,14 @@ SpellsById = {
                 ["id"] = 6798
             }
         },
+        [5215] = {
+            ["learnAtLvl"] = 20,
+            ["rank"] = 1,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 40,
+                ["id"] = 6783
+            }
+        },
         [5217] = {
             ["learnAtLvl"] = 24,
             ["rank"] = 1,
@@ -388,11 +412,6 @@ SpellsById = {
                 ["learnAtLvl"] = 40,
                 ["id"] = 8907
             }
-        },
-        [5420] = {
-            ["learnAtLvl"] = 0,
-            ["rank"] = nil,
-            ["nextRank"] = nil
         },
         [5487] = {
             ["learnAtLvl"] = 10,
@@ -429,6 +448,14 @@ SpellsById = {
             ["nextRank"] = {
                 ["learnAtLvl"] = 46,
                 ["id"] = 8905
+            }
+        },
+        [6783] = {
+            ["learnAtLvl"] = 40,
+            ["rank"] = 2,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 60,
+                ["id"] = 9913
             }
         },
         [6785] = {
@@ -761,6 +788,14 @@ SpellsById = {
                 ["id"] = 9898
             }
         },
+        [9749] = {
+            ["learnAtLvl"] = 42,
+            ["rank"] = 3,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 54,
+                ["id"] = 9907
+            }
+        },
         [9750] = {
             ["learnAtLvl"] = 42,
             ["rank"] = 6,
@@ -804,10 +839,7 @@ SpellsById = {
         [9821] = {
             ["learnAtLvl"] = 46,
             ["rank"] = 2,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 65,
-                ["id"] = 33357
-            }
+            ["nextRank"] = nil
         },
         [9823] = {
             ["learnAtLvl"] = 46,
@@ -820,10 +852,7 @@ SpellsById = {
         [9827] = {
             ["learnAtLvl"] = 56,
             ["rank"] = 3,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 66,
-                ["id"] = 27006
-            }
+            ["nextRank"] = nil
         },
         [9829] = {
             ["learnAtLvl"] = 46,
@@ -836,10 +865,7 @@ SpellsById = {
         [9830] = {
             ["learnAtLvl"] = 54,
             ["rank"] = 5,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 61,
-                ["id"] = 27001
-            }
+            ["nextRank"] = nil
         },
         [9833] = {
             ["learnAtLvl"] = 46,
@@ -860,10 +886,7 @@ SpellsById = {
         [9835] = {
             ["learnAtLvl"] = 58,
             ["rank"] = 10,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 63,
-                ["id"] = 26987
-            }
+            ["nextRank"] = nil
         },
         [9839] = {
             ["learnAtLvl"] = 46,
@@ -900,10 +923,7 @@ SpellsById = {
         [9846] = {
             ["learnAtLvl"] = 60,
             ["rank"] = 4,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 71,
-                ["id"] = 50212
-            }
+            ["nextRank"] = nil
         },
         [9849] = {
             ["learnAtLvl"] = 48,
@@ -916,10 +936,7 @@ SpellsById = {
         [9850] = {
             ["learnAtLvl"] = 58,
             ["rank"] = 5,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 67,
-                ["id"] = 27000
-            }
+            ["nextRank"] = nil
         },
         [9852] = {
             ["learnAtLvl"] = 48,
@@ -932,10 +949,7 @@ SpellsById = {
         [9853] = {
             ["learnAtLvl"] = 58,
             ["rank"] = 6,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 68,
-                ["id"] = 26989
-            }
+            ["nextRank"] = nil
         },
         [9856] = {
             ["learnAtLvl"] = 48,
@@ -956,10 +970,7 @@ SpellsById = {
         [9858] = {
             ["learnAtLvl"] = 60,
             ["rank"] = 9,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 65,
-                ["id"] = 26980
-            }
+            ["nextRank"] = nil
         },
         [9862] = {
             ["learnAtLvl"] = 50,
@@ -972,10 +983,7 @@ SpellsById = {
         [9863] = {
             ["learnAtLvl"] = 60,
             ["rank"] = 4,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 70,
-                ["id"] = 26983
-            }
+            ["nextRank"] = nil
         },
         [9866] = {
             ["learnAtLvl"] = 50,
@@ -988,10 +996,7 @@ SpellsById = {
         [9867] = {
             ["learnAtLvl"] = 58,
             ["rank"] = 4,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 66,
-                ["id"] = 27005
-            }
+            ["nextRank"] = nil
         },
         [9875] = {
             ["learnAtLvl"] = 50,
@@ -1020,10 +1025,7 @@ SpellsById = {
         [9881] = {
             ["learnAtLvl"] = 58,
             ["rank"] = 7,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 67,
-                ["id"] = 26996
-            }
+            ["nextRank"] = nil
         },
         [9884] = {
             ["learnAtLvl"] = 50,
@@ -1036,10 +1038,7 @@ SpellsById = {
         [9885] = {
             ["learnAtLvl"] = 60,
             ["rank"] = 7,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 70,
-                ["id"] = 26990
-            }
+            ["nextRank"] = nil
         },
         [9888] = {
             ["learnAtLvl"] = 50,
@@ -1060,10 +1059,7 @@ SpellsById = {
         [9892] = {
             ["learnAtLvl"] = 52,
             ["rank"] = 3,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 60,
-                ["id"] = 31709
-            }
+            ["nextRank"] = nil
         },
         [9894] = {
             ["learnAtLvl"] = 52,
@@ -1076,61 +1072,50 @@ SpellsById = {
         [9896] = {
             ["learnAtLvl"] = 60,
             ["rank"] = 6,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 67,
-                ["id"] = 27008
-            }
+            ["nextRank"] = nil
         },
         [9898] = {
             ["learnAtLvl"] = 52,
             ["rank"] = 5,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 62,
-                ["id"] = 26998
-            }
+            ["nextRank"] = nil
         },
         [9901] = {
             ["learnAtLvl"] = 54,
             ["rank"] = 3,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 70,
-                ["id"] = 26995
-            }
+            ["nextRank"] = nil
         },
         [9904] = {
             ["learnAtLvl"] = 54,
             ["rank"] = 4,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 64,
-                ["id"] = 27003
-            }
+            ["nextRank"] = nil
+        },
+        [9907] = {
+            ["learnAtLvl"] = 54,
+            ["rank"] = 4,
+            ["nextRank"] = nil
         },
         [9908] = {
             ["learnAtLvl"] = 54,
             ["rank"] = 5,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 64,
-                ["id"] = 26997
-            }
+            ["nextRank"] = nil
         },
         [9910] = {
             ["learnAtLvl"] = 54,
             ["rank"] = 6,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 64,
-                ["id"] = 26992
-            }
+            ["nextRank"] = nil
         },
         [9912] = {
             ["learnAtLvl"] = 54,
             ["rank"] = 8,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 61,
-                ["id"] = 26984
-            }
+            ["nextRank"] = nil
+        },
+        [9913] = {
+            ["learnAtLvl"] = 60,
+            ["rank"] = 3,
+            ["nextRank"] = nil
         },
         [16689] = {
-            ["learnAtLvl"] = 10,
+            ["learnAtLvl"] = 0,
             ["rank"] = 1,
             ["nextRank"] = {
                 ["learnAtLvl"] = 18,
@@ -1169,6 +1154,320 @@ SpellsById = {
                 ["id"] = 17329
             }
         },
+        [16814] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 1,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 16815
+            }
+        },
+        [16815] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 2,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 16816
+            }
+        },
+        [16816] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 3,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 16817
+            }
+        },
+        [16817] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 4,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 16818
+            }
+        },
+        [16818] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 5,
+            ["nextRank"] = nil
+        },
+        [16819] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 1,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 16820
+            }
+        },
+        [16820] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 2,
+            ["nextRank"] = nil
+        },
+        [16821] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 1,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 16822
+            }
+        },
+        [16822] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 2,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 16823
+            }
+        },
+        [16823] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 3,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 16824
+            }
+        },
+        [16824] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 4,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 16825
+            }
+        },
+        [16825] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 5,
+            ["nextRank"] = nil
+        },
+        [16833] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 1,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 16834
+            }
+        },
+        [16834] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 2,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 16835
+            }
+        },
+        [16835] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 3,
+            ["nextRank"] = nil
+        },
+        [16836] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 1,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 16839
+            }
+        },
+        [16839] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 2,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 16840
+            }
+        },
+        [16840] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 3,
+            ["nextRank"] = nil
+        },
+        [16845] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 1,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 16846
+            }
+        },
+        [16846] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 2,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 16847
+            }
+        },
+        [16847] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 3,
+            ["nextRank"] = nil
+        },
+        [16850] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 1,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 16923
+            }
+        },
+        [16857] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 1,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 30,
+                ["id"] = 17390
+            }
+        },
+        [16858] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 1,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 16859
+            }
+        },
+        [16859] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 2,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 16860
+            }
+        },
+        [16860] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 3,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 16861
+            }
+        },
+        [16861] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 4,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 16862
+            }
+        },
+        [16862] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 5,
+            ["nextRank"] = nil
+        },
+        [16896] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 1,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 16897
+            }
+        },
+        [16897] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 2,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 16899
+            }
+        },
+        [16899] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 3,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 16900
+            }
+        },
+        [16900] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 4,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 16901
+            }
+        },
+        [16901] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 5,
+            ["nextRank"] = nil
+        },
+        [16902] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 1,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 16903
+            }
+        },
+        [16903] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 2,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 16904
+            }
+        },
+        [16904] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 3,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 16905
+            }
+        },
+        [16905] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 4,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 16906
+            }
+        },
+        [16906] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 5,
+            ["nextRank"] = nil
+        },
+        [16909] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 1,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 16910
+            }
+        },
+        [16910] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 2,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 16911
+            }
+        },
+        [16911] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 3,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 16912
+            }
+        },
+        [16912] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 4,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 16913
+            }
+        },
+        [16913] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 5,
+            ["nextRank"] = nil
+        },
         [16914] = {
             ["learnAtLvl"] = 40,
             ["rank"] = 1,
@@ -1177,18 +1476,637 @@ SpellsById = {
                 ["id"] = 17401
             }
         },
+        [16918] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 1,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 16919
+            }
+        },
+        [16919] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 2,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 16920
+            }
+        },
+        [16920] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 3,
+            ["nextRank"] = nil
+        },
+        [16923] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 2,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 16924
+            }
+        },
+        [16924] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 3,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 16925
+            }
+        },
+        [16925] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 4,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 16926
+            }
+        },
+        [16926] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 5,
+            ["nextRank"] = nil
+        },
+        [16929] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 1,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 16930
+            }
+        },
+        [16930] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 2,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 16931
+            }
+        },
+        [16931] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 3,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 16932
+            }
+        },
+        [16932] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 4,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 16933
+            }
+        },
+        [16933] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 5,
+            ["nextRank"] = nil
+        },
+        [16934] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 1,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 16935
+            }
+        },
+        [16935] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 2,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 16936
+            }
+        },
+        [16936] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 3,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 16937
+            }
+        },
+        [16937] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 4,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 16938
+            }
+        },
+        [16938] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 5,
+            ["nextRank"] = nil
+        },
+        [16940] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 1,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 16941
+            }
+        },
+        [16941] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 2,
+            ["nextRank"] = nil
+        },
+        [16942] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 1,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 16943
+            }
+        },
+        [16943] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 2,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 16944
+            }
+        },
+        [16944] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 3,
+            ["nextRank"] = nil
+        },
+        [16947] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 1,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 16948
+            }
+        },
+        [16948] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 2,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 16949
+            }
+        },
+        [16949] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 3,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 16950
+            }
+        },
+        [16950] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 4,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 16951
+            }
+        },
+        [16951] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 5,
+            ["nextRank"] = nil
+        },
         [16961] = {
             ["learnAtLvl"] = 0,
             ["rank"] = 2,
             ["nextRank"] = nil
         },
+        [16966] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 1,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 16968
+            }
+        },
+        [16968] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 2,
+            ["nextRank"] = nil
+        },
+        [16972] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 1,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 16974
+            }
+        },
+        [16974] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 2,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 16975
+            }
+        },
+        [16975] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 3,
+            ["nextRank"] = nil
+        },
+        [16998] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 1,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 16999
+            }
+        },
+        [16999] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 2,
+            ["nextRank"] = nil
+        },
+        [17003] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 1,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 17004
+            }
+        },
+        [17004] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 2,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 17005
+            }
+        },
+        [17005] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 3,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 17006
+            }
+        },
+        [17006] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 4,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 24894
+            }
+        },
+        [17050] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 1,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 17051
+            }
+        },
+        [17051] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 2,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 17053
+            }
+        },
+        [17053] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 3,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 17054
+            }
+        },
+        [17054] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 4,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 17055
+            }
+        },
+        [17055] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 5,
+            ["nextRank"] = nil
+        },
+        [17056] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 1,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 17058
+            }
+        },
+        [17058] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 2,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 17059
+            }
+        },
+        [17059] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 3,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 17060
+            }
+        },
+        [17060] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 4,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 17061
+            }
+        },
+        [17061] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 5,
+            ["nextRank"] = nil
+        },
+        [17063] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 1,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 17065
+            }
+        },
+        [17065] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 2,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 17066
+            }
+        },
+        [17066] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 3,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 17067
+            }
+        },
+        [17067] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 4,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 17068
+            }
+        },
+        [17068] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 5,
+            ["nextRank"] = nil
+        },
+        [17069] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 1,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 17070
+            }
+        },
+        [17070] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 2,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 17071
+            }
+        },
+        [17071] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 3,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 17072
+            }
+        },
+        [17072] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 4,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 17073
+            }
+        },
+        [17073] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 5,
+            ["nextRank"] = nil
+        },
+        [17074] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 1,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 17075
+            }
+        },
+        [17075] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 2,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 17076
+            }
+        },
+        [17076] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 3,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 17077
+            }
+        },
+        [17077] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 4,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 17078
+            }
+        },
+        [17078] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 5,
+            ["nextRank"] = nil
+        },
+        [17079] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 1,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 17082
+            }
+        },
+        [17082] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 2,
+            ["nextRank"] = nil
+        },
+        [17104] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 1,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 24943
+            }
+        },
+        [17106] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 1,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 17107
+            }
+        },
+        [17107] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 2,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 17108
+            }
+        },
+        [17108] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 3,
+            ["nextRank"] = nil
+        },
+        [17111] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 1,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 17112
+            }
+        },
+        [17112] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 2,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 17113
+            }
+        },
+        [17113] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 3,
+            ["nextRank"] = nil
+        },
+        [17118] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 1,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 17119
+            }
+        },
+        [17119] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 2,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 17120
+            }
+        },
+        [17120] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 3,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 17121
+            }
+        },
+        [17121] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 4,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 17122
+            }
+        },
+        [17122] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 5,
+            ["nextRank"] = nil
+        },
+        [17123] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 1,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 17124
+            }
+        },
+        [17124] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 2,
+            ["nextRank"] = nil
+        },
+        [17245] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 1,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 17247
+            }
+        },
+        [17247] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 2,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 17248
+            }
+        },
+        [17248] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 3,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 17249
+            }
+        },
+        [17249] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 4,
+            ["nextRank"] = nil
+        },
         [17329] = {
             ["learnAtLvl"] = 58,
             ["rank"] = 6,
+            ["nextRank"] = nil
+        },
+        [17390] = {
+            ["learnAtLvl"] = 30,
+            ["rank"] = 2,
             ["nextRank"] = {
-                ["learnAtLvl"] = 68,
-                ["id"] = 27009
+                ["learnAtLvl"] = 42,
+                ["id"] = 17391
             }
+        },
+        [17391] = {
+            ["learnAtLvl"] = 42,
+            ["rank"] = 3,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 54,
+                ["id"] = 17392
+            }
+        },
+        [17392] = {
+            ["learnAtLvl"] = 54,
+            ["rank"] = 4,
+            ["nextRank"] = nil
         },
         [17401] = {
             ["learnAtLvl"] = 50,
@@ -1201,10 +2119,7 @@ SpellsById = {
         [17402] = {
             ["learnAtLvl"] = 60,
             ["rank"] = 3,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 70,
-                ["id"] = 27012
-            }
+            ["nextRank"] = nil
         },
         [18657] = {
             ["learnAtLvl"] = 38,
@@ -1259,10 +2174,7 @@ SpellsById = {
         [20748] = {
             ["learnAtLvl"] = 60,
             ["rank"] = 5,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 69,
-                ["id"] = 26994
-            }
+            ["nextRank"] = nil
         },
         [21849] = {
             ["learnAtLvl"] = 50,
@@ -1275,10 +2187,7 @@ SpellsById = {
         [21850] = {
             ["learnAtLvl"] = 60,
             ["rank"] = 2,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 70,
-                ["id"] = 26991
-            }
+            ["nextRank"] = nil
         },
         [22568] = {
             ["learnAtLvl"] = 32,
@@ -1286,14 +2195,6 @@ SpellsById = {
             ["nextRank"] = {
                 ["learnAtLvl"] = 40,
                 ["id"] = 22827
-            }
-        },
-        [22570] = {
-            ["learnAtLvl"] = 62,
-            ["rank"] = 1,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 74,
-                ["id"] = 49802
             }
         },
         [22827] = {
@@ -1320,17 +2221,101 @@ SpellsById = {
                 ["id"] = 31018
             }
         },
-        [24248] = {
-            ["learnAtLvl"] = 63,
-            ["rank"] = 6,
+        [22842] = {
+            ["learnAtLvl"] = 36,
+            ["rank"] = 1,
             ["nextRank"] = {
-                ["learnAtLvl"] = 72,
-                ["id"] = 48576
+                ["learnAtLvl"] = 46,
+                ["id"] = 22895
             }
+        },
+        [22895] = {
+            ["learnAtLvl"] = 46,
+            ["rank"] = 2,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 56,
+                ["id"] = 22896
+            }
+        },
+        [22896] = {
+            ["learnAtLvl"] = 56,
+            ["rank"] = 3,
+            ["nextRank"] = nil
         },
         [24858] = {
             ["learnAtLvl"] = 0,
             ["rank"] = nil,
+            ["nextRank"] = nil
+        },
+        [24894] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 5,
+            ["nextRank"] = nil
+        },
+        [24943] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 2,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 24944
+            }
+        },
+        [24944] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 3,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 24945
+            }
+        },
+        [24945] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 4,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 24946
+            }
+        },
+        [24946] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 5,
+            ["nextRank"] = nil
+        },
+        [24968] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 1,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 24969
+            }
+        },
+        [24969] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 2,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 24970
+            }
+        },
+        [24970] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 3,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 24971
+            }
+        },
+        [24971] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 4,
+            ["nextRank"] = {
+                ["learnAtLvl"] = 0,
+                ["id"] = 24972
+            }
+        },
+        [24972] = {
+            ["learnAtLvl"] = 0,
+            ["rank"] = 5,
             ["nextRank"] = nil
         },
         [24974] = {
@@ -1360,942 +2345,26 @@ SpellsById = {
         [24977] = {
             ["learnAtLvl"] = 60,
             ["rank"] = 5,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 70,
-                ["id"] = 27013
-            }
+            ["nextRank"] = nil
         },
         [25297] = {
             ["learnAtLvl"] = 60,
             ["rank"] = 11,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 62,
-                ["id"] = 26978
-            }
+            ["nextRank"] = nil
         },
         [25298] = {
             ["learnAtLvl"] = 60,
             ["rank"] = 7,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 67,
-                ["id"] = 26986
-            }
+            ["nextRank"] = nil
         },
         [25299] = {
             ["learnAtLvl"] = 60,
             ["rank"] = 11,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 63,
-                ["id"] = 26981
-            }
-        },
-        [26978] = {
-            ["learnAtLvl"] = 62,
-            ["rank"] = 12,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 69,
-                ["id"] = 26979
-            }
-        },
-        [26979] = {
-            ["learnAtLvl"] = 69,
-            ["rank"] = 13,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 74,
-                ["id"] = 48377
-            }
-        },
-        [26980] = {
-            ["learnAtLvl"] = 65,
-            ["rank"] = 10,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 71,
-                ["id"] = 48442
-            }
-        },
-        [26981] = {
-            ["learnAtLvl"] = 63,
-            ["rank"] = 12,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 69,
-                ["id"] = 26982
-            }
-        },
-        [26982] = {
-            ["learnAtLvl"] = 69,
-            ["rank"] = 13,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 75,
-                ["id"] = 48440
-            }
-        },
-        [26983] = {
-            ["learnAtLvl"] = 70,
-            ["rank"] = 5,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 75,
-                ["id"] = 48446
-            }
-        },
-        [26984] = {
-            ["learnAtLvl"] = 61,
-            ["rank"] = 9,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 69,
-                ["id"] = 26985
-            }
-        },
-        [26985] = {
-            ["learnAtLvl"] = 69,
-            ["rank"] = 10,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 74,
-                ["id"] = 48459
-            }
-        },
-        [26986] = {
-            ["learnAtLvl"] = 67,
-            ["rank"] = 8,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 72,
-                ["id"] = 48464
-            }
-        },
-        [26987] = {
-            ["learnAtLvl"] = 63,
-            ["rank"] = 11,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 70,
-                ["id"] = 26988
-            }
-        },
-        [26988] = {
-            ["learnAtLvl"] = 70,
-            ["rank"] = 12,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 75,
-                ["id"] = 48462
-            }
-        },
-        [26989] = {
-            ["learnAtLvl"] = 68,
-            ["rank"] = 7,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 78,
-                ["id"] = 53308
-            }
-        },
-        [26990] = {
-            ["learnAtLvl"] = 70,
-            ["rank"] = 8,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 80,
-                ["id"] = 48469
-            }
-        },
-        [26991] = {
-            ["learnAtLvl"] = 70,
-            ["rank"] = 3,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 80,
-                ["id"] = 48470
-            }
-        },
-        [26992] = {
-            ["learnAtLvl"] = 64,
-            ["rank"] = 7,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 74,
-                ["id"] = 53307
-            }
-        },
-        [26994] = {
-            ["learnAtLvl"] = 69,
-            ["rank"] = 6,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 79,
-                ["id"] = 48477
-            }
-        },
-        [26995] = {
-            ["learnAtLvl"] = 70,
-            ["rank"] = 4,
             ["nextRank"] = nil
-        },
-        [26996] = {
-            ["learnAtLvl"] = 67,
-            ["rank"] = 8,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 73,
-                ["id"] = 48479
-            }
-        },
-        [26997] = {
-            ["learnAtLvl"] = 64,
-            ["rank"] = 6,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 72,
-                ["id"] = 48561
-            }
-        },
-        [26998] = {
-            ["learnAtLvl"] = 62,
-            ["rank"] = 6,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 71,
-                ["id"] = 48559
-            }
-        },
-        [27000] = {
-            ["learnAtLvl"] = 67,
-            ["rank"] = 6,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 73,
-                ["id"] = 48569
-            }
-        },
-        [27001] = {
-            ["learnAtLvl"] = 61,
-            ["rank"] = 6,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 70,
-                ["id"] = 27002
-            }
-        },
-        [27002] = {
-            ["learnAtLvl"] = 70,
-            ["rank"] = 7,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 75,
-                ["id"] = 48571
-            }
-        },
-        [27003] = {
-            ["learnAtLvl"] = 64,
-            ["rank"] = 5,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 72,
-                ["id"] = 48573
-            }
-        },
-        [27004] = {
-            ["learnAtLvl"] = 69,
-            ["rank"] = 5,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 76,
-                ["id"] = 48575
-            }
-        },
-        [27005] = {
-            ["learnAtLvl"] = 66,
-            ["rank"] = 5,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 73,
-                ["id"] = 48578
-            }
-        },
-        [27006] = {
-            ["learnAtLvl"] = 66,
-            ["rank"] = 4,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 77,
-                ["id"] = 49803
-            }
-        },
-        [27008] = {
-            ["learnAtLvl"] = 67,
-            ["rank"] = 7,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 71,
-                ["id"] = 49799
-            }
-        },
-        [27009] = {
-            ["learnAtLvl"] = 68,
-            ["rank"] = 7,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 78,
-                ["id"] = 53312
-            }
-        },
-        [27012] = {
-            ["learnAtLvl"] = 70,
-            ["rank"] = 4,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 80,
-                ["id"] = 48467
-            }
-        },
-        [27013] = {
-            ["learnAtLvl"] = 70,
-            ["rank"] = 6,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 80,
-                ["id"] = 48468
-            }
         },
         [31018] = {
             ["learnAtLvl"] = 60,
             ["rank"] = 5,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 63,
-                ["id"] = 24248
-            }
-        },
-        [31709] = {
-            ["learnAtLvl"] = 60,
-            ["rank"] = 4,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 69,
-                ["id"] = 27004
-            }
-        },
-        [33357] = {
-            ["learnAtLvl"] = 65,
-            ["rank"] = 3,
-            ["nextRank"] = nil
-        },
-        [33745] = {
-            ["learnAtLvl"] = 66,
-            ["rank"] = 1,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 73,
-                ["id"] = 48567
-            }
-        },
-        [33763] = {
-            ["learnAtLvl"] = 64,
-            ["rank"] = 1,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 72,
-                ["id"] = 48450
-            }
-        },
-        [33876] = {
-            ["learnAtLvl"] = 50,
-            ["rank"] = 1,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 58,
-                ["id"] = 33982
-            }
-        },
-        [33878] = {
-            ["learnAtLvl"] = 50,
-            ["rank"] = 1,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 58,
-                ["id"] = 33986
-            }
-        },
-        [33891] = {
-            ["learnAtLvl"] = 50,
-            ["rank"] = nil,
-            ["nextRank"] = nil
-        },
-        [33917] = {
-            ["learnAtLvl"] = 0,
-            ["rank"] = 1,
-            ["nextRank"] = nil
-        },
-        [33943] = {
-            ["learnAtLvl"] = 60,
-            ["rank"] = nil,
-            ["nextRank"] = nil
-        },
-        [33982] = {
-            ["learnAtLvl"] = 58,
-            ["rank"] = 2,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 68,
-                ["id"] = 33983
-            }
-        },
-        [33983] = {
-            ["learnAtLvl"] = 68,
-            ["rank"] = 3,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 75,
-                ["id"] = 48565
-            }
-        },
-        [33986] = {
-            ["learnAtLvl"] = 58,
-            ["rank"] = 2,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 68,
-                ["id"] = 33987
-            }
-        },
-        [33987] = {
-            ["learnAtLvl"] = 68,
-            ["rank"] = 3,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 75,
-                ["id"] = 48563
-            }
-        },
-        [37116] = {
-            ["learnAtLvl"] = 0,
-            ["rank"] = 1,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 0,
-                ["id"] = 37117
-            }
-        },
-        [37117] = {
-            ["learnAtLvl"] = 0,
-            ["rank"] = 2,
-            ["nextRank"] = nil
-        },
-        [40120] = {
-            ["learnAtLvl"] = 70,
-            ["rank"] = nil,
-            ["nextRank"] = nil
-        },
-        [44203] = {
-            ["learnAtLvl"] = 30,
-            ["rank"] = 1,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 40,
-                ["id"] = 8918
-            }
-        },
-        [44205] = {
-            ["learnAtLvl"] = 40,
-            ["rank"] = 2,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 50,
-                ["id"] = 9862
-            }
-        },
-        [44206] = {
-            ["learnAtLvl"] = 50,
-            ["rank"] = 3,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 60,
-                ["id"] = 9863
-            }
-        },
-        [44207] = {
-            ["learnAtLvl"] = 60,
-            ["rank"] = 4,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 70,
-                ["id"] = 26983
-            }
-        },
-        [44208] = {
-            ["learnAtLvl"] = 70,
-            ["rank"] = 5,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 75,
-                ["id"] = 48446
-            }
-        },
-        [48377] = {
-            ["learnAtLvl"] = 74,
-            ["rank"] = 14,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 79,
-                ["id"] = 48378
-            }
-        },
-        [48378] = {
-            ["learnAtLvl"] = 79,
-            ["rank"] = 15,
-            ["nextRank"] = nil
-        },
-        [48438] = {
-            ["learnAtLvl"] = 0,
-            ["rank"] = 1,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 70,
-                ["id"] = 53248
-            }
-        },
-        [48440] = {
-            ["learnAtLvl"] = 75,
-            ["rank"] = 14,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 80,
-                ["id"] = 48441
-            }
-        },
-        [48441] = {
-            ["learnAtLvl"] = 80,
-            ["rank"] = 15,
-            ["nextRank"] = nil
-        },
-        [48442] = {
-            ["learnAtLvl"] = 71,
-            ["rank"] = 11,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 77,
-                ["id"] = 48443
-            }
-        },
-        [48443] = {
-            ["learnAtLvl"] = 77,
-            ["rank"] = 12,
-            ["nextRank"] = nil
-        },
-        [48446] = {
-            ["learnAtLvl"] = 75,
-            ["rank"] = 6,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 80,
-                ["id"] = 48447
-            }
-        },
-        [48447] = {
-            ["learnAtLvl"] = 80,
-            ["rank"] = 7,
-            ["nextRank"] = nil
-        },
-        [48450] = {
-            ["learnAtLvl"] = 72,
-            ["rank"] = 2,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 80,
-                ["id"] = 48451
-            }
-        },
-        [48451] = {
-            ["learnAtLvl"] = 80,
-            ["rank"] = 3,
-            ["nextRank"] = nil
-        },
-        [48459] = {
-            ["learnAtLvl"] = 74,
-            ["rank"] = 11,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 79,
-                ["id"] = 48461
-            }
-        },
-        [48461] = {
-            ["learnAtLvl"] = 79,
-            ["rank"] = 12,
-            ["nextRank"] = nil
-        },
-        [48462] = {
-            ["learnAtLvl"] = 75,
-            ["rank"] = 13,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 80,
-                ["id"] = 48463
-            }
-        },
-        [48463] = {
-            ["learnAtLvl"] = 80,
-            ["rank"] = 14,
-            ["nextRank"] = nil
-        },
-        [48464] = {
-            ["learnAtLvl"] = 72,
-            ["rank"] = 9,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 78,
-                ["id"] = 48465
-            }
-        },
-        [48465] = {
-            ["learnAtLvl"] = 78,
-            ["rank"] = 10,
-            ["nextRank"] = nil
-        },
-        [48467] = {
-            ["learnAtLvl"] = 80,
-            ["rank"] = 5,
-            ["nextRank"] = nil
-        },
-        [48468] = {
-            ["learnAtLvl"] = 80,
-            ["rank"] = 7,
-            ["nextRank"] = nil
-        },
-        [48469] = {
-            ["learnAtLvl"] = 80,
-            ["rank"] = 9,
-            ["nextRank"] = nil
-        },
-        [48470] = {
-            ["learnAtLvl"] = 80,
-            ["rank"] = 4,
-            ["nextRank"] = nil
-        },
-        [48477] = {
-            ["learnAtLvl"] = 79,
-            ["rank"] = 7,
-            ["nextRank"] = nil
-        },
-        [48479] = {
-            ["learnAtLvl"] = 73,
-            ["rank"] = 9,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 79,
-                ["id"] = 48480
-            }
-        },
-        [48480] = {
-            ["learnAtLvl"] = 79,
-            ["rank"] = 10,
-            ["nextRank"] = nil
-        },
-        [48505] = {
-            ["learnAtLvl"] = 0,
-            ["rank"] = 1,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 70,
-                ["id"] = 53199
-            }
-        },
-        [48559] = {
-            ["learnAtLvl"] = 71,
-            ["rank"] = 7,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 77,
-                ["id"] = 48560
-            }
-        },
-        [48560] = {
-            ["learnAtLvl"] = 77,
-            ["rank"] = 8,
-            ["nextRank"] = nil
-        },
-        [48561] = {
-            ["learnAtLvl"] = 72,
-            ["rank"] = 7,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 77,
-                ["id"] = 48562
-            }
-        },
-        [48562] = {
-            ["learnAtLvl"] = 77,
-            ["rank"] = 8,
-            ["nextRank"] = nil
-        },
-        [48563] = {
-            ["learnAtLvl"] = 75,
-            ["rank"] = 4,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 80,
-                ["id"] = 48564
-            }
-        },
-        [48564] = {
-            ["learnAtLvl"] = 80,
-            ["rank"] = 5,
-            ["nextRank"] = nil
-        },
-        [48565] = {
-            ["learnAtLvl"] = 75,
-            ["rank"] = 4,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 80,
-                ["id"] = 48566
-            }
-        },
-        [48566] = {
-            ["learnAtLvl"] = 80,
-            ["rank"] = 5,
-            ["nextRank"] = nil
-        },
-        [48567] = {
-            ["learnAtLvl"] = 73,
-            ["rank"] = 2,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 80,
-                ["id"] = 48568
-            }
-        },
-        [48568] = {
-            ["learnAtLvl"] = 80,
-            ["rank"] = 3,
-            ["nextRank"] = nil
-        },
-        [48569] = {
-            ["learnAtLvl"] = 73,
-            ["rank"] = 7,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 79,
-                ["id"] = 48570
-            }
-        },
-        [48570] = {
-            ["learnAtLvl"] = 79,
-            ["rank"] = 8,
-            ["nextRank"] = nil
-        },
-        [48571] = {
-            ["learnAtLvl"] = 75,
-            ["rank"] = 8,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 80,
-                ["id"] = 48572
-            }
-        },
-        [48572] = {
-            ["learnAtLvl"] = 80,
-            ["rank"] = 9,
-            ["nextRank"] = nil
-        },
-        [48573] = {
-            ["learnAtLvl"] = 72,
-            ["rank"] = 6,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 78,
-                ["id"] = 48574
-            }
-        },
-        [48574] = {
-            ["learnAtLvl"] = 78,
-            ["rank"] = 7,
-            ["nextRank"] = nil
-        },
-        [48575] = {
-            ["learnAtLvl"] = 76,
-            ["rank"] = 6,
-            ["nextRank"] = nil
-        },
-        [48576] = {
-            ["learnAtLvl"] = 72,
-            ["rank"] = 7,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 78,
-                ["id"] = 48577
-            }
-        },
-        [48577] = {
-            ["learnAtLvl"] = 78,
-            ["rank"] = 8,
-            ["nextRank"] = nil
-        },
-        [48578] = {
-            ["learnAtLvl"] = 73,
-            ["rank"] = 6,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 79,
-                ["id"] = 48579
-            }
-        },
-        [48579] = {
-            ["learnAtLvl"] = 79,
-            ["rank"] = 7,
-            ["nextRank"] = nil
-        },
-        [49377] = {
-            ["learnAtLvl"] = 0,
-            ["rank"] = 1,
-            ["nextRank"] = nil
-        },
-        [49799] = {
-            ["learnAtLvl"] = 71,
-            ["rank"] = 8,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 80,
-                ["id"] = 49800
-            }
-        },
-        [49800] = {
-            ["learnAtLvl"] = 80,
-            ["rank"] = 9,
-            ["nextRank"] = nil
-        },
-        [49802] = {
-            ["learnAtLvl"] = 74,
-            ["rank"] = 2,
-            ["nextRank"] = nil
-        },
-        [49803] = {
-            ["learnAtLvl"] = 77,
-            ["rank"] = 5,
-            ["nextRank"] = nil
-        },
-        [50212] = {
-            ["learnAtLvl"] = 71,
-            ["rank"] = 5,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 79,
-                ["id"] = 50213
-            }
-        },
-        [50213] = {
-            ["learnAtLvl"] = 79,
-            ["rank"] = 6,
-            ["nextRank"] = nil
-        },
-        [50464] = {
-            ["learnAtLvl"] = 80,
-            ["rank"] = 1,
-            ["nextRank"] = nil
-        },
-        [50516] = {
-            ["learnAtLvl"] = 0,
-            ["rank"] = 1,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 60,
-                ["id"] = 53223
-            }
-        },
-        [50763] = {
-            ["learnAtLvl"] = 80,
-            ["rank"] = 7,
-            ["nextRank"] = nil
-        },
-        [50764] = {
-            ["learnAtLvl"] = 69,
-            ["rank"] = 6,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 80,
-                ["id"] = 50763
-            }
-        },
-        [50765] = {
-            ["learnAtLvl"] = 60,
-            ["rank"] = 5,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 69,
-                ["id"] = 50764
-            }
-        },
-        [50766] = {
-            ["learnAtLvl"] = 48,
-            ["rank"] = 4,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 60,
-                ["id"] = 50765
-            }
-        },
-        [50767] = {
-            ["learnAtLvl"] = 36,
-            ["rank"] = 3,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 48,
-                ["id"] = 50766
-            }
-        },
-        [50768] = {
-            ["learnAtLvl"] = 24,
-            ["rank"] = 2,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 36,
-                ["id"] = 50767
-            }
-        },
-        [50769] = {
-            ["learnAtLvl"] = 12,
-            ["rank"] = 1,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 24,
-                ["id"] = 50768
-            }
-        },
-        [52610] = {
-            ["learnAtLvl"] = 75,
-            ["rank"] = 1,
-            ["nextRank"] = nil
-        },
-        [53199] = {
-            ["learnAtLvl"] = 70,
-            ["rank"] = 2,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 75,
-                ["id"] = 53200
-            }
-        },
-        [53200] = {
-            ["learnAtLvl"] = 75,
-            ["rank"] = 3,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 80,
-                ["id"] = 53201
-            }
-        },
-        [53201] = {
-            ["learnAtLvl"] = 80,
-            ["rank"] = 4,
-            ["nextRank"] = nil
-        },
-        [53223] = {
-            ["learnAtLvl"] = 60,
-            ["rank"] = 2,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 70,
-                ["id"] = 53225
-            }
-        },
-        [53225] = {
-            ["learnAtLvl"] = 70,
-            ["rank"] = 3,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 75,
-                ["id"] = 53226
-            }
-        },
-        [53226] = {
-            ["learnAtLvl"] = 75,
-            ["rank"] = 4,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 80,
-                ["id"] = 61384
-            }
-        },
-        [53248] = {
-            ["learnAtLvl"] = 70,
-            ["rank"] = 2,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 75,
-                ["id"] = 53249
-            }
-        },
-        [53249] = {
-            ["learnAtLvl"] = 75,
-            ["rank"] = 3,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 80,
-                ["id"] = 53251
-            }
-        },
-        [53251] = {
-            ["learnAtLvl"] = 80,
-            ["rank"] = 4,
-            ["nextRank"] = nil
-        },
-        [53307] = {
-            ["learnAtLvl"] = 74,
-            ["rank"] = 8,
-            ["nextRank"] = nil
-        },
-        [53308] = {
-            ["learnAtLvl"] = 78,
-            ["rank"] = 8,
-            ["nextRank"] = nil
-        },
-        [53312] = {
-            ["learnAtLvl"] = 78,
-            ["rank"] = 8,
-            ["nextRank"] = nil
-        },
-        [61384] = {
-            ["learnAtLvl"] = 80,
-            ["rank"] = 5,
-            ["nextRank"] = nil
-        },
-        [62078] = {
-            ["learnAtLvl"] = 71,
-            ["rank"] = 1,
-            ["nextRank"] = nil
-        },
-        [62600] = {
-            ["learnAtLvl"] = 40,
-            ["rank"] = nil,
-            ["nextRank"] = nil
-        },
-        [65139] = {
-            ["learnAtLvl"] = 0,
-            ["rank"] = 1,
             ["nextRank"] = nil
         }
     }
