@@ -1,7 +1,7 @@
 ## Interface: 30400
 ## SavedVariablesPerCharacter: NotificationDelay, SpellIgnoreList
 ## Title: HintMeRank
-## Version: 3.0.0
+## Version: 3.2.0
 ## Notes: Informs you about the use of outranked spells and adds an analysis window for outranked spells on your actionbars.
 ## Author: shadowgrind
 
