@@ -1,7 +1,6 @@
 -- Notes for me:
 -- _G[varName] => das gleiche wie "getglobal(varName)" => "Get a global variable, from a string." ;; "getglobal("globalName")"
-
-local PLAYER_LEVEL = UnitLevel("PLAYER") 
+ 
 local PLAYER_CLASS = select(2, UnitClass("player")) -- contains the UPPERCAE class name (unlocalized)
 
 Spells = _G["SpellsById"][PLAYER_CLASS]
@@ -32,7 +31,6 @@ LevelUpEventBus:RegisterEvent('PLAYER_LEVEL_UP')
 LevelUpEventBus:SetScript('OnEvent', 
     function(self, event, level) -- params passed to this event handler: level, healthDelta, powerDelta, numNewTalents, numNewPvpTalentSlots, strengthDelta, agilityDelta, staminaDelta, intellectDelta
         -- set the new level to the global var (that is used at various spots) and reset the cache so functions that use the cache are foreced to re-run their logic
-        PLAYER_LEVEL = level -- NOTE to my self: never use UnitLevel("PLAYER") ... the docs say that this function may return a value that is out of sync and therefor wrong
         CACHE.maxSkillRanksAtLevel = {}
     end
 )
@@ -58,8 +56,8 @@ SpellWatchEventBus:SetScript("OnEvent", -- WHEN PLAYER CASTS A SPELL
                     local maxRank_SpellId = findMaxAvailableRank(spellId) -- returns the spell-id of the max avail. rank
                     -- 1. (en) chat msg format str:   %s %s used. Max available rank for you at level %d is: %s %s!
                     -- Example out.:                  [Moonfire] Rank X used. Max available rank for you at level Y is [Moonfire] Rank Z
-                    print(string.format(i18n["outranked spell used chat"], GetSpellLink(spellId), actionRankRaw, PLAYER_LEVEL, GetSpellLink(maxRank_SpellId), GetSpellSubtext(maxRank_SpellId)))
-                    fadingFrame:AddMessage(string.format(i18n["outranked spell used fading"], actionName, actionRankRaw, PLAYER_LEVEL, GetSpellSubtext(maxRank_SpellId)))
+                    print(string.format(i18n["outranked spell used chat"], GetSpellLink(spellId), actionRankRaw, UnitLevel("PLAYER"), GetSpellLink(maxRank_SpellId), GetSpellSubtext(maxRank_SpellId)))
+                    fadingFrame:AddMessage(string.format(i18n["outranked spell used fading"], actionName, actionRankRaw, UnitLevel("PLAYER"), GetSpellSubtext(maxRank_SpellId)))
                     CACHE.notifications[spellId] = time()
                     -- PlaySound(3175) -- does not work however
                 end
