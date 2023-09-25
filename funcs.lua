@@ -1,14 +1,16 @@
-local PLAYER_LEVEL = UnitLevel("PLAYER")
+
 
 -- ================================================================================
 -- ================================================================================
 -- TODO describe function, params & return
 -- ================================================================================
 function isSpellOutranked(spellId) 
+    local spellname = GetSpellInfo(spellId)
+
     if Spells[spellId] == nil or Spells[spellId]["nextRank"] == nil then
         return false -- if there is not even a next rank for the spell we are currently checken -> this means it is not outranked
     end
-    if Spells[spellId]["nextRank"]["learnAtLvl"] <= PLAYER_LEVEL then
+    if Spells[spellId]["nextRank"]["learnAtLvl"] <= UnitLevel("PLAYER") then
         return true
     end
     return false
@@ -31,7 +33,7 @@ function findMaxAvailableRank(spellId) -- returns the spellId of the max avail r
         return spellId
     end
 
-    if nextRank["learnAtLvl"] <= PLAYER_LEVEL then
+    if nextRank["learnAtLvl"] <= UnitLevel("PLAYER") then
         return findMaxAvailableRank(nextRank["id"])
     end
 
