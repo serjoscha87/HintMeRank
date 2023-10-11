@@ -1,0 +1,11 @@
+## without this file somehow curseforge auto declines the addon - dunno why
+
+druid.lua
+hunter.lua
+paladin.lua
+warlock.lua
+mage.lua
+warrior.lua
+shaman.lua
+priest.lua
+rogue.lua

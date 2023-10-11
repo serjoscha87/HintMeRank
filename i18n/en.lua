@@ -16,5 +16,6 @@ i18n = {
         "",
         "UPRANK",
         "TEACHER"
-    }
+    },
+    ["uprank all"] = "Uprank all"
 }

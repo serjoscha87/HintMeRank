@@ -13,5 +13,6 @@ i18n = {
         "aufgewertet werden.",
         "AUFWERTEN",
         "LEHRER"
-    }
+    },
+    ["uprank all"] = "Alle aufwerten"
 }

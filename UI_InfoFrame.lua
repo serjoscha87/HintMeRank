@@ -131,6 +131,15 @@ function renderInfoRows()
             GameTooltip:Show()
         end)
 
+        -- disable spell rank info buttons in vanilla
+        -- => https://www.wowinterface.com/forums/showthread.php?t=58991 
+        -- * "GetSpellLink wasn't added until 2.4.0. It should be available in BCC but it's not in Classic."
+        -- * "I don't know about TBCC, but Classic Era doesn't support spell links."
+        if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
+            infoRowsUi[rowIndex]["previousRankBtn"]:Disable()
+            infoRowsUi[rowIndex]["highestRankBtn"]:Disable()
+        end
+
         nextElemPos = nextElemPos + infoRowsUi[rowIndex]["highestRankBtn"]:GetTextWidth() + 25 
 
         -- OUTRO TEXT
@@ -190,9 +199,18 @@ function renderInfoRows()
 
     -- adust master frame height according to the info rows we have
     if outranked_spells_found > 0 then -- var outranked_spells_found comes through HintMeRank.lua
-        f:SetSize(infoRowMaxWidth + 12, 40 + (infoRowAmountCurrent * 35) )
+        local height_modifier = 0
+        if outranked_spells_found > 1 then
+            infoRowAmountCurrent = infoRowAmountCurrent+1 -- because if there is more then 1 spell the "uprank all btn is shown"
+            height_modifier = -18
+            f.UprankAllBtn:Show()
+        else
+            f.UprankAllBtn:Hide() -- because we don't need the 'uprank all' btn if there is actually only one btn
+        end 
+        f:SetSize(infoRowMaxWidth + 12, 40 + (infoRowAmountCurrent * 35) + height_modifier )
     else
         f:SetSize(mainFrameBounds[1], mainFrameBounds[2])
+        f.UprankAllBtn:Hide()
     end
 
 end
@@ -240,6 +258,20 @@ function createMainWindow()
     allSpellsMaxRankInfoText:SetPoint("CENTER")
     allSpellsMaxRankInfoText:Hide()
 
+    -- uprank all btn
+    f.UprankAllBtn = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+    f.UprankAllBtn:SetText(i18n["uprank all"])
+    f.UprankAllBtn:SetSize(f.UprankAllBtn:GetTextWidth()+20, 22)
+    f.UprankAllBtn:SetPoint("BOTTOMRIGHT", -5, 5) -- x, y
+    f.UprankAllBtn:SetScript("OnClick", function(self)
+        for i=1,infoRowAmount,1 do
+            C_Timer.After(0.2*(i-1), function() 
+                infoRowsUi[1]["uprankBtn"]:Click() -- (1 instead of i because the ui re-renders on click causing the first button always to represent the very next spell that needs an uprank)
+            end)
+        end
+    end)
+
+    -- initially hide the window after its creation
     f:Hide()
 end
 
