@@ -1,7 +1,7 @@
 ## Interface: 30403
 ## SavedVariablesPerCharacter: NotificationDelay, SpellIgnoreList
 ## Title: HintMeRank
-## Version: 3.3.1
+## Version: 3.3.2
 ## Notes: Informs you about the use of outranked spells and adds an analysis window for outranked spells on your actionbars.
 ## Author: shadowgrind
 
@@ -20,6 +20,7 @@ Classes\wotlk\deathknight.lua
 
 i18n\de.lua
 i18n\en.lua
+i18n\fr.lua
 
 UI_InfoFrame.lua
 UI_ReminderFrame.lua
