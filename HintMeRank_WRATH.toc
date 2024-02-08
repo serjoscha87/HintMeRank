@@ -23,6 +23,6 @@ i18n\en.lua
 i18n\fr.lua
 
 UI_InfoFrame.lua
-UI_ReminderFrame.lua
+##UI_ReminderFrame.lua
 
 HintMeRank.lua
