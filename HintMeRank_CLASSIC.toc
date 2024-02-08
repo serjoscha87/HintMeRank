@@ -1,4 +1,4 @@
-## Interface: 11404
+## Interface: 11501
 ## SavedVariablesPerCharacter: NotificationDelay, SpellIgnoreList
 ## Title: HintMeRank
 ## Version: 3.3.1
