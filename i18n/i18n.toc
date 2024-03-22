@@ -1,3 +1,4 @@
 de.lua
 en.lua
 fr.lua
+es.lua
