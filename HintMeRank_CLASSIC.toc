@@ -20,6 +20,7 @@ Classes\vanilla\rogue.lua
 i18n\de.lua
 i18n\en.lua
 i18n\fr.lua
+i18n\es.lua
 
 UI_InfoFrame.lua
 
