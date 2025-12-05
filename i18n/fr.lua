@@ -11,8 +11,15 @@ if GetLocale() == "frFR" then
             "peu être amélioré vers",
             "",
             "AMELIORER",
-            "APPRENDRE"
+            "APPRENDRE",
+            "or"
         },
+        ["ignored one rank"] = "ignored one rank",
+        ["ignored all ranks"] = "ignored all ranks",
+        ["spell ignored one rank"] = "Spell %s %s ignored for one rank upgrade.",
+        ["spell ignored all ranks"] = "Spell %s ignored for all rank upgrades, starting from rank %s.",
+        ["all ignored cleared"] = "All spell ignored cleared.",
+        ["clear ignored"] = "Clear ignored",
         ["uprank all"] = "Améliorer tout"
     }
 end

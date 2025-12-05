@@ -2,7 +2,7 @@
 
 infoRowsUi = {} -- NOTE: this ui element holder table can ONLY GROW! (reason: see above)
 infoRowAmount = 0 -- the overall amount of info rows - also this can only grow
-infoRowAmountCurrent = 0 -- the amount of currently visible rows
+infoRowAmountCurrent = 1 -- the amount of currently visible rows, start from 1 because of bottom buttons
 infoRowMaxWidth = -1 -- the maximum width over all rows
 function renderInfoRows()
 
@@ -11,7 +11,7 @@ function renderInfoRows()
         infoRowsUi[i]["container"]:Hide()
     end
 
-    infoRowAmountCurrent = 0
+    infoRowAmountCurrent = 1
 
     -- then process the list of buttons we need ...
     for rowIndex, rowTable in pairs(infoRowsData) do
@@ -38,6 +38,10 @@ function renderInfoRows()
                 ["textLabel1"] = nil, -- filler text
                 ["highestRankBtn"] = nil,
                 ["textLabel2"] = nil, -- outro text
+                ["textLabel3"] = nil, -- or text
+                ["ignoreOneBtn"] = nil,
+                ["ignoreAllBtn"] = nil,
+                ["textDot"] = nil, -- dot text
                 ["uprankBtn"] = nil
             }
 
@@ -74,6 +78,18 @@ function renderInfoRows()
             -- OUTRO TEXT
             infoRowsUi[rowIndex]["textLabel2"] = infoRowsUi[rowIndex]["container"]:CreateFontString(nil, "ARTWORK", "GameFontNormal")
             infoRowsUi[rowIndex]["textLabel2"]:SetText(i18n["info row chunks"][2]) -- static text
+
+            -- OR TEXT
+            infoRowsUi[rowIndex]["textLabel3"] = infoRowsUi[rowIndex]["container"]:CreateFontString(nil, "ARTWORK", "GameFontNormal")
+            infoRowsUi[rowIndex]["textLabel3"]:SetText(i18n["info row chunks"][5]) -- static text
+
+            -- IGNORE BTNS
+            infoRowsUi[rowIndex]["ignoreOneBtn"] = CreateFrame("Button", nil, infoRowsUi[rowIndex]["container"], "UIPanelButtonTemplate")
+            infoRowsUi[rowIndex]["ignoreAllBtn"] = CreateFrame("Button", nil, infoRowsUi[rowIndex]["container"], "UIPanelButtonTemplate")
+
+            -- DOT TEXT
+            infoRowsUi[rowIndex]["textDot"] = infoRowsUi[rowIndex]["container"]:CreateFontString(nil, "ARTWORK", "GameFontNormal")
+            infoRowsUi[rowIndex]["textDot"]:SetText(".") -- static text
 
             -- UP-RANK BTN
             infoRowsUi[rowIndex]["uprankBtn"] = CreateFrame("Button", nil, infoRowsUi[rowIndex]["container"], "UIPanelButtonTemplate")
@@ -179,10 +195,48 @@ function renderInfoRows()
             end
         end)
 
-        -- end of components
+        nextElemPos = nextElemPos + infoRowsUi[rowIndex]["uprankBtn"]:GetTextWidth() + 25
+
+        -- OR TEXT
+        infoRowsUi[rowIndex]["textLabel3"]:SetPoint("LEFT", nextElemPos, 0)
+
+        nextElemPos = nextElemPos + infoRowsUi[rowIndex]["textLabel3"]:GetStringWidth() + 5
+
+        --IGNORE ONE RANK BTN
+        infoRowsUi[rowIndex]["ignoreOneBtn"]:SetPoint("LEFT", nextElemPos, 0)
+        infoRowsUi[rowIndex]["ignoreOneBtn"]:SetText(i18n["ignored one rank"])
+        infoRowsUi[rowIndex]["ignoreOneBtn"]:SetSize(infoRowsUi[rowIndex]["ignoreOneBtn"]:GetTextWidth()+20, 22)
+        infoRowsUi[rowIndex]["ignoreOneBtn"]:SetScript("OnClick", function()
+            ignoreSpellRank(currentSpellId)
+            ClearCursor()
+            -- update ui
+            collectOutrankedSpells()
+            renderInfoRows()
+        end)
+
+        nextElemPos = nextElemPos + infoRowsUi[rowIndex]["ignoreOneBtn"]:GetTextWidth() + 25
+
+        -- IGNORE ALL RANKS BTN
+        infoRowsUi[rowIndex]["ignoreAllBtn"]:SetPoint("LEFT", nextElemPos, 0)
+        infoRowsUi[rowIndex]["ignoreAllBtn"]:SetText(i18n["ignored all ranks"])
+        infoRowsUi[rowIndex]["ignoreAllBtn"]:SetSize(infoRowsUi[rowIndex]["ignoreAllBtn"]:GetTextWidth()+20, 22)
+        infoRowsUi[rowIndex]["ignoreAllBtn"]:SetScript("OnClick", function()
+            ignoreAllSpellRanks(currentSpellId)
+            ClearCursor()
+            -- update ui
+            collectOutrankedSpells()
+            renderInfoRows()
+        end)
+
+        nextElemPos = nextElemPos + infoRowsUi[rowIndex]["ignoreAllBtn"]:GetTextWidth() + 20
+
+        -- DOT
+        infoRowsUi[rowIndex]["textDot"]:SetPoint("LEFT", nextElemPos, 0)
+
+        --end of components
 
         -- resize the row container
-        local rowWidth = nextElemPos + infoRowsUi[rowIndex]["uprankBtn"]:GetTextWidth() + 25
+        local rowWidth = nextElemPos + infoRowsUi[rowIndex]["textDot"]:GetStringWidth() + 25
         if rowWidth > infoRowMaxWidth then
             infoRowMaxWidth = rowWidth
         end
@@ -197,22 +251,30 @@ function renderInfoRows()
         components["container"]:SetSize(infoRowMaxWidth, 30)
     end
 
+    -- hide 'clear ignored' btn when there is nothing to clear
+    if tcount(SpellIgnoreList) == 0 then
+        f.ClearIgnoredBtn:Hide()
+    else
+        f.ClearIgnoredBtn:Show()
+    end
+
     -- adust master frame height according to the info rows we have
     if outranked_spells_found > 0 then -- var outranked_spells_found comes through HintMeRank.lua
-        local height_modifier = 0
+        local height_modifier = -18
         if outranked_spells_found > 1 then
-            infoRowAmountCurrent = infoRowAmountCurrent+1 -- because if there is more then 1 spell the "uprank all btn is shown"
-            height_modifier = -18
             f.UprankAllBtn:Show()
         else
             f.UprankAllBtn:Hide() -- because we don't need the 'uprank all' btn if there is actually only one btn
-        end 
+            if not f.ClearIgnoredBtn:IsShown() and not f.UprankAllBtn:IsShown() then
+                height_modifier = 0
+                infoRowAmountCurrent = infoRowAmountCurrent - 1 -- because no buttons are shown at the bottom
+            end
+        end
         f:SetSize(infoRowMaxWidth + 12, 40 + (infoRowAmountCurrent * 35) + height_modifier )
     else
         f:SetSize(mainFrameBounds[1], mainFrameBounds[2])
         f.UprankAllBtn:Hide()
     end
-
 end
 
 mainFrameBounds = {400, 200}
@@ -257,6 +319,20 @@ function createMainWindow()
     allSpellsMaxRankInfoText:SetText(i18n["all spells on max rank"])
     allSpellsMaxRankInfoText:SetPoint("CENTER")
     allSpellsMaxRankInfoText:Hide()
+
+    -- clear ignored btn
+    f.ClearIgnoredBtn = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+    f.ClearIgnoredBtn:SetText(i18n["clear ignored"])
+    f.ClearIgnoredBtn:SetSize(f.ClearIgnoredBtn:GetTextWidth()+20, 22)
+    f.ClearIgnoredBtn:SetPoint("BOTTOMLEFT", 5, 5) -- x, y
+    f.ClearIgnoredBtn:SetScript("OnClick", function()
+        table.wipe(SpellIgnoreList)
+        ClearCursor()
+        print(i18n["all ignored cleared"])
+        -- update ui
+        collectOutrankedSpells()
+        renderInfoRows()
+    end)
 
     -- uprank all btn
     f.UprankAllBtn = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")

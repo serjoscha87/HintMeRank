@@ -23,6 +23,11 @@ AddonLoadedEventBus:SetScript('OnEvent', function(self, event, addonName)
             NotificationDelay = 10
             print(string.format("|cffFF0000[HMR] Broken Notification-Delay fixed! Resetted to 10 minutes again.|r"))
         end
+        -- init/fix SpellIgnoreList table
+        if (type(SpellIgnoreList) ~= "table") then
+            SpellIgnoreList = {}
+            print(string.format("|cffFF0000[HMR] Broken Spell-Ignore-List fixed! Resetted to empty list again.|r"))
+        end
     end
 end)
 
@@ -162,6 +167,10 @@ SlashCmdList["HINTMERANK"] = function(paramStr)
             CACHE.maxSkillRanksAtLevel = {}
             print(string.format("|cffFFFF00[HMR] Cache cleared.|r"))
         end
+    -- chat commmand to clear the ignored spells
+    elseif cmd == "clear-ignored" then
+        table.wipe(SpellIgnoreList)
+        print(string.format("|cffFFFF00[HMR] Spell-Ignore-List cleared.|r"))
     else
         if mainFrameInitialized == false then
             createMainWindow()
