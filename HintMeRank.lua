@@ -56,7 +56,7 @@ SpellWatchEventBus:SetScript("OnEvent", -- WHEN PLAYER CASTS A SPELL
                     local maxRank_SpellId = findMaxAvailableRank(spellId) -- returns the spell-id of the max avail. rank
                     -- 1. (en) chat msg format str:   %s %s used. Max available rank for you at level %d is: %s %s!
                     -- Example out.:                  [Moonfire] Rank X used. Max available rank for you at level Y is [Moonfire] Rank Z
-                    print(string.format(i18n["outranked spell used chat"], GetSpellLink(spellId), actionRankRaw, UnitLevel("PLAYER"), GetSpellLink(maxRank_SpellId), GetSpellSubtext(maxRank_SpellId)))
+                    print(string.format(i18n["outranked spell used chat"], GetSpellLink(spellId), actionRankRaw, UnitLevel("PLAYER"), GetSpellLink(maxRank_SpellId), GetSpellSubtext(maxRank_SpellId) or "?"))
                     fadingFrame:AddMessage(string.format(i18n["outranked spell used fading"], actionName, actionRankRaw, UnitLevel("PLAYER"), GetSpellSubtext(maxRank_SpellId)))
                     CACHE.notifications[spellId] = time()
                     -- PlaySound(3175) -- does not work however
@@ -83,29 +83,35 @@ local ActionBars = {
     MultiBarRight = "Second Side Bar",
     MultiBarLeft = "First Side Bar"
 }
+local ActionBarsNewApi = {
+    Action = "Main Bar", 
+    MultiBarBottomLeft = "Bottom Left Bar", 
+    MultiBarBottomRight = "Bottom Right Bar", 
+    MultiBarRight = "Right Menu Bar", 
+    MultiBarLeft = "Left Menu Bar",
+    MainMenuBar = "Main Menu Bar",
+    MultiBar5 = "Multi Bar 5",
+    MultiBar6 = "Multi Bar 6",
+    MultiBar7 = "Multi Bar 7"
+}
 
 function collectOutrankedSpells() 
-
     outranked_spells_found = 0
 
     infoRowsData = {} -- just reset the data we collected before
 
-    -- source: https://www.wowinterface.com/forums/showthread.php?t=45731
-    for barName, human_readable_bar_name in pairs(ActionBars) do -- iterate all bars
-        for button_index = 1, 12 do -- 1 to 12: because we got 12 skill slots on each bar
-            local actionButtonInstance = _G[barName .. 'Button' .. button_index]
-            local slot = ActionButton_GetPagedID(actionButtonInstance) or ActionButton_CalculateAction(actionButtonInstance) or actionButtonInstance:GetAttribute('action') or 0
-            if HasAction(slot) then
-                local actionType, spellId, actionSubType = GetActionInfo(slot)
-                if actionType == 'spell' and isClassSpell(spellId) and isSpellOutranked(spellId) then
-                    -- Return info: GetSpellInfo(id) : [actionName, nilRank, icon, castTime, minRange, maxRange]  
-                    -- Note: the second parameter (previously rank) has been changes by blizzard to now always return NIL - not the rank anymore... however
-                    --local actionName = GetSpellInfo(spellId)
-                    local actionRankRaw = GetSpellSubtext(spellId)
-                    --if actionName then
-                    if actionRankRaw ~= nil then
-                        local slotRankNumeric = tonumber(string.match(actionRankRaw, '%S+$'))
-                        --if slotRankNumeric ~= nil then
+    if ActionButton_GetPagedID then -- old API
+        -- source: https://www.wowinterface.com/forums/showthread.php?t=45731
+        for barName, human_readable_bar_name in pairs(ActionBars) do -- iterate all bars
+            for button_index = 1, 12 do -- 1 to 12: because we got 12 skill slots on each bar
+                local actionButtonInstance = _G[barName .. 'Button' .. button_index]
+                local slot = ActionButton_GetPagedID(actionButtonInstance) or ActionButton_CalculateAction(actionButtonInstance) or actionButtonInstance:GetAttribute('action') or 0
+                if type(slot) == "number" and slot > 0 and HasAction(slot) then
+                    local actionType, spellId, actionSubType = GetActionInfo(slot)
+                    if actionType == 'spell' and isClassSpell(spellId) and isSpellOutranked(spellId) then
+                        local actionRankRaw = GetSpellSubtext(spellId)
+                        if actionRankRaw ~= nil then
+                            local slotRankNumeric = tonumber(string.match(actionRankRaw, '%S+$'))
                             local maxRank_SpellId = findMaxAvailableRank(spellId)
                             local maxRankNumeric = Spells[maxRank_SpellId]["rank"]
                             if slotRankNumeric < maxRankNumeric then
@@ -117,12 +123,43 @@ function collectOutrankedSpells()
 
                                 outranked_spells_found = outranked_spells_found + 1
                             end
-                        --end
+                        end
+                    end
+                end
+            end
+        end
+    else -- new DF (and up) action bar API -- TODO optimize - code is mostly identical to the one above
+        for barName, human_readable_bar_name in pairs(ActionBarsNewApi) do
+            for button_index = 1, 12 do
+                local button = _G[barName .. "Button" .. button_index]
+                if (button) then
+                    local actionButtonInstance = _G[barName .. 'Button' .. button_index]
+                    local slot = button.action or 0
+                    if (slot and HasAction(slot)) then
+                        local actionType, spellId, actionSubType = GetActionInfo(slot)
+                        if actionType == 'spell' and isClassSpell(spellId) and isSpellOutranked(spellId) then
+                            local actionRankRaw = GetSpellSubtext(spellId)
+                            if actionRankRaw ~= nil then
+                                local slotRankNumeric = tonumber(string.match(actionRankRaw, '%S+$'))
+                                local maxRank_SpellId = findMaxAvailableRank(spellId)
+                                local maxRankNumeric = Spells[maxRank_SpellId]["rank"]
+                                if slotRankNumeric < maxRankNumeric then
+                                    table.insert(infoRowsData, {
+                                        ["currentSpellId"] = spellId,
+                                        ["maxRankSpellId"] = maxRank_SpellId,
+                                        ["actionButtonInstance"] = actionButtonInstance
+                                    })
+
+                                    outranked_spells_found = outranked_spells_found + 1
+                                end
+                            end
+                        end
                     end
                 end
             end
         end
     end
+
     if outranked_spells_found == 0 then
         allSpellsMaxRankInfoText:Show()
     else

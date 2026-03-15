@@ -45,3 +45,11 @@ end
 function isClassSpell(spellId)
     return Spells[spellId] ~= nil
 end
+
+-- ================================================================================
+-- ================================================================================
+-- TODO describe function, params & return
+-- ================================================================================
+function firstToUpper(str)
+    return (str:gsub("^%l", string.upper))
+end

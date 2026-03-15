@@ -1,4 +1,124 @@
--- for frames cannot be disposed we need to reuse them - so in order to not have thousands of buttons when one calls the ui of the addon multiple times - we need to reuse buttons
+local currentTooltipSpellId = nil
+local SpellInfoFrameTitleLabel = nil  -- set in createMainWindow
+
+local function ShowSpellInfo(spellId)
+    -- toggle: gleicher Rang nochmal geklickt → schließen
+    if SpellInfoFrame:IsShown() and currentTooltipSpellId == spellId then
+        SpellInfoFrame:Hide()
+        currentTooltipSpellId = nil
+        return
+    end
+    currentTooltipSpellId = spellId
+
+    -- Titel setzen (Spell-Name + Rang)
+    if SpellInfoFrameTitleLabel then
+        local spellName = GetSpellInfo(spellId)
+        local spellRank = GetSpellSubtext(spellId)
+        if spellRank and spellRank ~= "" then
+            SpellInfoFrameTitleLabel:SetText((spellName or "") .. " (" .. spellRank .. ")")
+        else
+            SpellInfoFrameTitleLabel:SetText(spellName or "")
+        end
+    end
+
+    -- Tooltip befüllen
+    SpellInfoFrameSpellTooltip:SetOwner(UIParent, "ANCHOR_NONE")
+    SpellInfoFrameSpellTooltip:ClearLines()
+    SpellInfoFrameSpellTooltip:SetSpellByID(spellId)
+
+    -- Zauberzeit manuell ergänzen
+    local _, _, _, castTime = GetSpellInfo(spellId)
+    if castTime then
+        local castText = castTime == 0 and "Sofort" or string.format("%.1f sek", castTime / 1000)
+        SpellInfoFrameSpellTooltip:AddDoubleLine("Zauberzeit:", castText, 0.5, 0.5, 0.5, 1, 1, 1)
+    end
+
+    -- Manakosten manuell ergänzen
+    if GetSpellPowerCost then
+        local powerCosts = GetSpellPowerCost(spellId)
+        if powerCosts then
+            for _, v in pairs(powerCosts) do
+                if v.cost and v.cost > 0 and v.name then
+                    SpellInfoFrameSpellTooltip:AddDoubleLine(v.name .. ":", tostring(v.cost), 0.5, 0.5, 0.5, 0.4, 0.7, 1)
+                end
+            end
+        end
+    end
+
+    SpellInfoFrameSpellTooltip:Show()
+
+    -- Titelleiste an die Oberkante des Hauptfensters heften
+    SpellInfoFrame:ClearAllPoints()
+    SpellInfoFrame:SetPoint("BOTTOMLEFT", f, "TOPLEFT", 0, 5)
+    SpellInfoFrame:Show()
+
+    -- Nach einem Frame-Cycle hat der Tooltip seine echte Größe
+    C_Timer.After(0, function()
+        if not SpellInfoFrame:IsShown() then return end
+
+        local tipW = SpellInfoFrameSpellTooltip:GetWidth()
+        local tipH = SpellInfoFrameSpellTooltip:GetHeight()
+        if tipW == 0 or tipH == 0 then return end
+
+        -- Titelleiste auf Tooltip-Breite anpassen
+        SpellInfoFrame:SetSize(math.max(tipW, 200), 28)
+
+        -- Tooltip direkt oberhalb der Titelleiste verankern
+        SpellInfoFrameSpellTooltip:ClearAllPoints()
+        SpellInfoFrameSpellTooltip:SetPoint("BOTTOMLEFT", SpellInfoFrame, "TOPLEFT", 0, 2)
+    end)
+end
+
+-- ==============================
+
+local function ShowFakeGlow(button)
+    if button.glow then 
+        button.glow:Show()
+        return 
+    end
+
+    local glow = button:CreateTexture(nil, "OVERLAY")
+    glow:SetTexture("Interface\\Buttons\\UI-ActionButton-Border")
+    glow:SetAllPoints(button)
+    glow:SetBlendMode("ADD")
+    --glow:SetAllPoints(button)
+    glow:SetPoint("TOPLEFT", button, -10, 10)
+    glow:SetPoint("BOTTOMRIGHT", button, 10, -10)
+    glow:SetVertexColor(1.0, 0.7, 0.0)
+
+    local ag = glow:CreateAnimationGroup()
+
+    -- Fade in
+    local fadeIn = ag:CreateAnimation("Alpha")
+    fadeIn:SetFromAlpha(0.3)
+    fadeIn:SetToAlpha(1.0)
+    fadeIn:SetDuration(0.6)
+    fadeIn:SetSmoothing("IN_OUT")
+    fadeIn:SetOrder(1)
+
+    -- Fade out
+    local fadeOut = ag:CreateAnimation("Alpha")
+    fadeOut:SetFromAlpha(1.0)
+    fadeOut:SetToAlpha(0.3)
+    fadeOut:SetDuration(0.6)
+    fadeOut:SetSmoothing("IN_OUT")
+    fadeOut:SetOrder(2)
+
+    ag:SetLooping("REPEAT")
+    ag:Play()
+
+    button.glow = glow
+end
+
+local function HideFakeGlow(button)
+    if button.glow then
+        button.glow:Hide()
+    end
+end
+
+-- ==============================
+
+-- General note: for frames cannot be disposed we need to reuse them - so in order to not have thousands of buttons when one calls the ui of the addon multiple times - we need to reuse buttons
 
 infoRowsUi = {} -- NOTE: this ui element holder table can ONLY GROW! (reason: see above)
 infoRowAmount = 0 -- the overall amount of info rows - also this can only grow
@@ -86,10 +206,18 @@ function renderInfoRows()
 
         -- container
         infoRowsUi[rowIndex]["container"]:SetScript("OnEnter", function()
-            _G.ActionButton_ShowOverlayGlow(actionButtonInstance)
+            if _G.ActionButton_ShowOverlayGlow then
+                _G.ActionButton_ShowOverlayGlow(actionButtonInstance) -- as of WOTLK
+            else
+                ShowFakeGlow(actionButtonInstance) -- vanilla + tbc
+            end
         end)
         infoRowsUi[rowIndex]["container"]:SetScript("OnLeave", function()
-            _G.ActionButton_HideOverlayGlow(actionButtonInstance)
+            if _G.ActionButton_HideOverlayGlow then
+                _G.ActionButton_HideOverlayGlow(actionButtonInstance)
+            else
+                HideFakeGlow(actionButtonInstance)
+            end
         end)
 
         local nextElemPos = 0 -- helper var that is successively increased after each component in order for the next component to know where to be placed on the x axis
@@ -109,9 +237,7 @@ function renderInfoRows()
             --tooltip:SetHyperlink(GetSpellLink(spellId))
             --tooltip:Show()
 
-            GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
-            GameTooltip:SetHyperlink(GetSpellLink(currentSpellId))
-            GameTooltip:Show()
+            ShowSpellInfo(currentSpellId)
         end)
 
         nextElemPos = nextElemPos + infoRowsUi[rowIndex]["previousRankBtn"]:GetTextWidth() + 25
@@ -126,9 +252,7 @@ function renderInfoRows()
         infoRowsUi[rowIndex]["highestRankBtn"]:SetSize(infoRowsUi[rowIndex]["highestRankBtn"]:GetTextWidth()+20, 22)
         infoRowsUi[rowIndex]["highestRankBtn"]:SetPoint("LEFT", nextElemPos, 0)
         infoRowsUi[rowIndex]["highestRankBtn"]:SetScript("OnClick", function()
-            GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
-            GameTooltip:SetHyperlink(GetSpellLink(maxRankSpellId))
-            GameTooltip:Show()
+            ShowSpellInfo(maxRankSpellId)
         end)
 
         -- disable spell rank info buttons in vanilla
@@ -158,22 +282,30 @@ function renderInfoRows()
         end
         infoRowsUi[rowIndex]["uprankBtn"]:SetSize(infoRowsUi[rowIndex]["uprankBtn"]:GetTextWidth()+20, 22)
         infoRowsUi[rowIndex]["uprankBtn"]:SetScript("OnClick", function()
-            if IsSpellKnown(maxRankSpellId) then 
-                ClearCursor()
-                PickupSpell(maxRankSpellId)
-                local slot = ActionButton_GetPagedID(actionButtonInstance) or ActionButton_CalculateAction(actionButtonInstance) or actionButtonInstance:GetAttribute('action') or 0 -- TODO copy paste from main lua file
-                PlaceAction(slot)
-                ClearCursor() 
+            if IsSpellKnown(maxRankSpellId) then
+                local slot  = nil 
+                if(ActionButton_GetPagedID) then -- old api
+                    slot = ActionButton_GetPagedID(actionButtonInstance) or ActionButton_CalculateAction(actionButtonInstance) or actionButtonInstance:GetAttribute('action') or 0 -- TODO copy paste from main lua file
+                else -- new api
+                    slot = actionButtonInstance.action or nil
+                end
+                if (slot and HasAction(slot)) then
+                    ClearCursor()
+                    PickupSpell(maxRankSpellId)
 
-                -- just print success message
-                local linkOldRank, _ = GetSpellLink(currentSpellId)
-                local linkNewRank, _ = GetSpellLink(maxRankSpellId)
-                print(string.format(i18n["uprank successful"], linkOldRank, GetSpellSubtext(currentSpellId), linkNewRank, GetSpellSubtext(maxRankSpellId)))
+                    PlaceAction(slot)
+                    ClearCursor() 
 
-                -- update ui
-                -- TODO would be nicer to just remove the current index from the data table and then recall renderInfoRows instead of running the complete logic of collectOutrankedSpells
-                collectOutrankedSpells()
-                renderInfoRows()
+                    -- just print success message
+                    local linkOldRank, _ = GetSpellLink(currentSpellId)
+                    local linkNewRank, _ = GetSpellLink(maxRankSpellId)
+                    print(string.format(i18n["uprank successful"], linkOldRank, GetSpellSubtext(currentSpellId), linkNewRank, GetSpellSubtext(maxRankSpellId)))
+
+                    -- update ui
+                    -- TODO would be nicer to just remove the current index from the data table and then recall renderInfoRows instead of running the complete logic of collectOutrankedSpells
+                    collectOutrankedSpells()
+                    renderInfoRows()
+                end
             else
                 print(i18n["uprank failed because spell not learned"])
             end
@@ -247,6 +379,52 @@ function createMainWindow()
     f.Close:SetScript("OnClick", function(self)
         self:GetParent():Hide()
     end)
+
+    -- Spell-Info: schmale Titelleiste (Titel + Close-Button)
+    SpellInfoFrame = CreateFrame("Frame", "MySpellWindow", UIParent, "BackdropTemplate")
+    SpellInfoFrame:SetSize(300, 28)
+    SpellInfoFrame:SetPoint("CENTER")
+    SpellInfoFrame:SetFrameStrata("DIALOG")
+    SpellInfoFrame:SetMovable(true)
+    SpellInfoFrame:EnableMouse(true)
+    SpellInfoFrame:RegisterForDrag("LeftButton")
+    SpellInfoFrame:SetScript("OnDragStart", SpellInfoFrame.StartMoving)
+    SpellInfoFrame:SetScript("OnDragStop", SpellInfoFrame.StopMovingOrSizing)
+    SpellInfoFrame:SetScript("OnHide", function()
+        SpellInfoFrameSpellTooltip:Hide()
+        currentTooltipSpellId = nil
+    end)
+    SpellInfoFrame:Hide()
+
+    SpellInfoFrame:SetBackdrop({
+        bgFile = "Interface/Tooltips/UI-Tooltip-Background",
+        edgeFile = "Interface/Tooltips/UI-Tooltip-Border",
+        tile = true,
+        tileSize = 16,
+        edgeSize = 16,
+        insets = { left = 4, right = 4, top = 4, bottom = 4 }
+    })
+    SpellInfoFrame:SetBackdropColor(0, 0, 0, 1)
+
+    -- Close Button (X)
+    local SpellInfoFrameCloseButton = CreateFrame("Button", nil, SpellInfoFrame, "UIPanelCloseButton")
+    SpellInfoFrameCloseButton:SetPoint("TOPRIGHT", -5, -5)
+
+    -- Titel-Label (Spell-Name + Rang wird in ShowSpellInfo gesetzt)
+    SpellInfoFrameTitleLabel = SpellInfoFrame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    SpellInfoFrameTitleLabel:SetPoint("LEFT", SpellInfoFrame, "LEFT", 8, 0)
+    SpellInfoFrameTitleLabel:SetPoint("RIGHT", SpellInfoFrame, "RIGHT", -26, 0)
+    SpellInfoFrameTitleLabel:SetJustifyH("LEFT")
+    SpellInfoFrameTitleLabel:SetWordWrap(false)
+
+    -- GameTooltip als eigenständiger Top-Level-Frame (NICHT child von SpellInfoFrame)
+    -- => verhindert Render-Konflikte beim SetOwner-Aufruf
+    SpellInfoFrameSpellTooltip = CreateFrame("GameTooltip", "HMRSpellTooltip", UIParent, "GameTooltipTemplate")
+    SpellInfoFrameSpellTooltip:SetFrameStrata("DIALOG")
+    SpellInfoFrameSpellTooltip:SetClampedToScreen(true)
+    SpellInfoFrameSpellTooltip:Hide()
+
+    -- ==================
 
     local frameHeadline = f:CreateFontString(nil, "ARTWORK", "GameFontNormal")
     frameHeadline:SetText("HintMeRank")

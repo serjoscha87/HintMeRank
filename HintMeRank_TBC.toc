@@ -1,4 +1,4 @@
-## Interface: 11508
+## Interface: 20505
 ## SavedVariablesPerCharacter: NotificationDelay, SpellIgnoreList
 ## Title: HintMeRank
 ## Version: 4.0.0
@@ -7,15 +7,15 @@
 
 funcs.lua
 
-Classes\vanilla\druid.lua
-Classes\vanilla\hunter.lua
-Classes\vanilla\paladin.lua
-Classes\vanilla\warlock.lua
-Classes\vanilla\mage.lua
-Classes\vanilla\warrior.lua
-Classes\vanilla\shaman.lua
-Classes\vanilla\priest.lua
-Classes\vanilla\rogue.lua
+Classes\tbc\druid.lua
+Classes\tbc\hunter.lua
+Classes\tbc\paladin.lua
+Classes\tbc\warlock.lua
+Classes\tbc\mage.lua
+Classes\tbc\warrior.lua
+Classes\tbc\shaman.lua
+Classes\tbc\priest.lua
+Classes\tbc\rogue.lua
 
 i18n\de.lua
 i18n\en.lua
@@ -23,5 +23,6 @@ i18n\fr.lua
 i18n\es.lua
 
 UI_InfoFrame.lua
+##UI_ReminderFrame.lua
 
 HintMeRank.lua
