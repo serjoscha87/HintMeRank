@@ -13,6 +13,11 @@ if GetLocale() == "esES" or GetLocale() == "esMX" then
             "MEJORAR",
             "INSTRUCTOR"
         },
-        ["uprank all"] = "Mejorar todo"
+        ["uprank all"] = "Mejorar todo",
+        ["ignore"] = "X",
+        ["edit ignore list"] = "Lista Ignorados",
+        ["ignore list title"] = "Lista Ignorados",
+        ["ignore list empty"] = "La lista está vacía.",
+        ["remove"] = "Quitar"
     }
 end

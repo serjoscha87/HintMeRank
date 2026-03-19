@@ -13,6 +13,11 @@ if GetLocale() == "frFR" then
             "AMELIORER",
             "APPRENDRE"
         },
-        ["uprank all"] = "Améliorer tout"
+        ["uprank all"] = "Améliorer tout",
+        ["ignore"] = "X",
+        ["edit ignore list"] = "Liste Ignorés",
+        ["ignore list title"] = "Liste Ignorés",
+        ["ignore list empty"] = "La liste d'ignorés est vide.",
+        ["remove"] = "Retirer"
     }
 end

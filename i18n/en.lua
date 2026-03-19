@@ -11,6 +11,11 @@ if GetLocale() == "enGB" or GetLocale() == "enUS" then
             "UPRANK",
             "TEACHER"
         },
-        ["uprank all"] = "Uprank all"
+        ["uprank all"] = "Uprank all",
+        ["ignore"] = "X",
+        ["edit ignore list"] = "Ignore List",
+        ["ignore list title"] = "Ignore List",
+        ["ignore list empty"] = "The ignore list is empty.",
+        ["remove"] = "Remove"
     }
 end

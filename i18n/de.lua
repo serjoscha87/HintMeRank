@@ -11,6 +11,11 @@ if GetLocale() == "deDE" then
             "AUFWERTEN",
             "LEHRER"
         },
-        ["uprank all"] = "Alle aufwerten"
+        ["uprank all"] = "Alle aufwerten",
+        ["ignore"] = "X",
+        ["edit ignore list"] = "Ignorieren-Liste",
+        ["ignore list title"] = "Ignorieren-Liste",
+        ["ignore list empty"] = "Die Ignorieren-Liste ist leer.",
+        ["remove"] = "Entfernen"
     }
 end

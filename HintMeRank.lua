@@ -23,6 +23,9 @@ AddonLoadedEventBus:SetScript('OnEvent', function(self, event, addonName)
             NotificationDelay = 10
             print(string.format("|cffFF0000[HMR] Broken Notification-Delay fixed! Resetted to 10 minutes again.|r"))
         end
+        if SpellIgnoreList == nil then
+            SpellIgnoreList = {}
+        end
     end
 end)
 
@@ -51,7 +54,7 @@ SpellWatchEventBus:SetScript("OnEvent", -- WHEN PLAYER CASTS A SPELL
             local actionRankRaw = GetSpellSubtext(spellId)
             if actionRankRaw ~= nil then
                 local rankNumeric = tonumber(string.match(actionRankRaw, '%S+$')) -- pulls out the number from the rank string
-                if rankNumeric ~= nil and isClassSpell(spellId) and isSpellOutranked(spellId) then
+                if rankNumeric ~= nil and isClassSpell(spellId) and isSpellOutranked(spellId) and not isSpellIgnored(spellId) then
                     local actionName = GetSpellInfo(spellId)
                     local maxRank_SpellId = findMaxAvailableRank(spellId) -- returns the spell-id of the max avail. rank
                     -- 1. (en) chat msg format str:   %s %s used. Max available rank for you at level %d is: %s %s!
@@ -137,7 +140,7 @@ function collectOutrankedSpells()
                     local slot = button.action or 0
                     if (slot and HasAction(slot)) then
                         local actionType, spellId, actionSubType = GetActionInfo(slot)
-                        if actionType == 'spell' and isClassSpell(spellId) and isSpellOutranked(spellId) then
+                        if actionType == 'spell' and isClassSpell(spellId) and isSpellOutranked(spellId) and not isSpellIgnored(spellId) then
                             local actionRankRaw = GetSpellSubtext(spellId)
                             if actionRankRaw ~= nil then
                                 local slotRankNumeric = tonumber(string.match(actionRankRaw, '%S+$'))

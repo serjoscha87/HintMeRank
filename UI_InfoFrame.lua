@@ -124,6 +124,10 @@ infoRowsUi = {} -- NOTE: this ui element holder table can ONLY GROW! (reason: se
 infoRowAmount = 0 -- the overall amount of info rows - also this can only grow
 infoRowAmountCurrent = 0 -- the amount of currently visible rows
 infoRowMaxWidth = -1 -- the maximum width over all rows
+
+ignoreListRowsUi = {} -- pool for ignore list window rows (can only grow)
+ignoreListRowAmount = 0
+
 function renderInfoRows()
 
     -- at first: hide all previous buttons
@@ -158,7 +162,8 @@ function renderInfoRows()
                 ["textLabel1"] = nil, -- filler text
                 ["highestRankBtn"] = nil,
                 ["textLabel2"] = nil, -- outro text
-                ["uprankBtn"] = nil
+                ["uprankBtn"] = nil,
+                ["ignoreBtn"] = nil
             }
 
             -- info row container frame
@@ -197,6 +202,9 @@ function renderInfoRows()
 
             -- UP-RANK BTN
             infoRowsUi[rowIndex]["uprankBtn"] = CreateFrame("Button", nil, infoRowsUi[rowIndex]["container"], "UIPanelButtonTemplate")
+
+            -- IGNORE BTN
+            infoRowsUi[rowIndex]["ignoreBtn"] = CreateFrame("Button", nil, infoRowsUi[rowIndex]["container"], "UIPanelButtonTemplate")
 
         end
 
@@ -313,8 +321,20 @@ function renderInfoRows()
 
         -- end of components
 
+        -- IGNORE BTN
+        local ignoreBtnX = nextElemPos + infoRowsUi[rowIndex]["uprankBtn"]:GetTextWidth() + 25
+        infoRowsUi[rowIndex]["ignoreBtn"]:SetPoint("LEFT", ignoreBtnX, 0)
+        infoRowsUi[rowIndex]["ignoreBtn"]:SetText(i18n["ignore"])
+        infoRowsUi[rowIndex]["ignoreBtn"]:SetSize(22, 22)
+        infoRowsUi[rowIndex]["ignoreBtn"]:SetScript("OnClick", function()
+            if SpellIgnoreList == nil then SpellIgnoreList = {} end
+            SpellIgnoreList[currentSpellId] = true
+            collectOutrankedSpells()
+            renderInfoRows()
+        end)
+
         -- resize the row container
-        local rowWidth = nextElemPos + infoRowsUi[rowIndex]["uprankBtn"]:GetTextWidth() + 25
+        local rowWidth = ignoreBtnX + 22 + 5
         if rowWidth > infoRowMaxWidth then
             infoRowMaxWidth = rowWidth
         end
@@ -332,20 +352,104 @@ function renderInfoRows()
     -- adust master frame height according to the info rows we have
     if outranked_spells_found > 0 then -- var outranked_spells_found comes through HintMeRank.lua
         local height_modifier = 0
+        local baseHeight = 60 -- extra space for bottom button when only 1 spell row
         if outranked_spells_found > 1 then
             infoRowAmountCurrent = infoRowAmountCurrent+1 -- because if there is more then 1 spell the "uprank all btn is shown"
             height_modifier = -18
+            baseHeight = 40 -- UprankAll button row already adds the needed space
             f.UprankAllBtn:Show()
         else
             f.UprankAllBtn:Hide() -- because we don't need the 'uprank all' btn if there is actually only one btn
-        end 
-        f:SetSize(infoRowMaxWidth + 12, 40 + (infoRowAmountCurrent * 35) + height_modifier )
+        end
+        f:SetSize(infoRowMaxWidth + 12, baseHeight + (infoRowAmountCurrent * 35) + height_modifier )
     else
         f:SetSize(mainFrameBounds[1], mainFrameBounds[2])
         f.UprankAllBtn:Hide()
     end
 
+end -- end renderInfoRows
+
+-- ==============================
+
+function renderIgnoreListRows()
+    -- hide all previous rows
+    for i = 1, ignoreListRowAmount do
+        ignoreListRowsUi[i]["container"]:Hide()
+    end
+
+    local rowIndex = 0
+    local hasEntries = false
+
+    if SpellIgnoreList then
+        for spellId, _ in pairs(SpellIgnoreList) do
+            hasEntries = true
+            rowIndex = rowIndex + 1
+
+            local spellName = GetSpellInfo(spellId) or ("Spell " .. tostring(spellId))
+            local spellRank = GetSpellSubtext(spellId)
+            local displayName = (spellRank and spellRank ~= "") and (spellName .. " (" .. spellRank .. ")") or spellName
+
+            -- create row if it doesn't exist yet
+            if rowIndex > ignoreListRowAmount then
+                ignoreListRowAmount = ignoreListRowAmount + 1
+
+                ignoreListRowsUi[rowIndex] = {
+                    ["container"] = nil,
+                    ["nameLabel"] = nil,
+                    ["removeBtn"] = nil,
+                }
+
+                ignoreListRowsUi[rowIndex]["container"] = CreateFrame("Frame", nil, IgnoreListFrame, BackdropTemplateMixin and "BackdropTemplate")
+                ignoreListRowsUi[rowIndex]["container"]:SetBackdrop({
+                    bgFile = "Interface/FrameGeneral/UI-Background-Rock",
+                    edgeFile = "Interface/glues/Common/TextPanel-Border",
+                    tile = true,
+                    edgeSize = 8,
+                    tileSize = 256
+                })
+
+                ignoreListRowsUi[rowIndex]["nameLabel"] = ignoreListRowsUi[rowIndex]["container"]:CreateFontString(nil, "ARTWORK", "GameFontNormal")
+                ignoreListRowsUi[rowIndex]["nameLabel"]:SetPoint("LEFT", 10, 0)
+
+                ignoreListRowsUi[rowIndex]["removeBtn"] = CreateFrame("Button", nil, ignoreListRowsUi[rowIndex]["container"], "UIPanelButtonTemplate")
+            end
+
+            -- position & size row
+            ignoreListRowsUi[rowIndex]["container"]:SetPoint("TOPLEFT", 5, -1 * (35 * rowIndex))
+            ignoreListRowsUi[rowIndex]["container"]:SetSize(370, 30)
+
+            -- label
+            ignoreListRowsUi[rowIndex]["nameLabel"]:SetText(displayName)
+
+            -- remove button
+            local capturedSpellId = spellId
+            ignoreListRowsUi[rowIndex]["removeBtn"]:SetText(i18n["remove"])
+            ignoreListRowsUi[rowIndex]["removeBtn"]:SetSize(ignoreListRowsUi[rowIndex]["removeBtn"]:GetTextWidth() + 20, 22)
+            ignoreListRowsUi[rowIndex]["removeBtn"]:SetPoint("RIGHT", -5, 0)
+            ignoreListRowsUi[rowIndex]["removeBtn"]:SetScript("OnClick", function()
+                SpellIgnoreList[capturedSpellId] = nil
+                renderIgnoreListRows()
+                -- refresh main window if currently open
+                if f and f:IsShown() then
+                    collectOutrankedSpells()
+                    renderInfoRows()
+                end
+            end)
+
+            ignoreListRowsUi[rowIndex]["container"]:Show()
+        end
+    end
+
+    if not hasEntries then
+        IgnoreListFrame.EmptyLabel:Show()
+        IgnoreListFrame:SetSize(400, 100)
+    else
+        IgnoreListFrame.EmptyLabel:Hide()
+        IgnoreListFrame:SetSize(390, 40 + (rowIndex * 35))
+    end
 end
+
+-- ==============================
 
 mainFrameBounds = {400, 200}
 function createMainWindow()
@@ -378,6 +482,15 @@ function createMainWindow()
     f.Close:SetHighlightTexture("Interface/Buttons/UI-Panel-MinimizeButton-Highlight", "ADD")
     f.Close:SetScript("OnClick", function(self)
         self:GetParent():Hide()
+    end)
+
+    f:SetScript("OnHide", function()
+        if SpellInfoFrame and SpellInfoFrame:IsShown() then
+            SpellInfoFrame:Hide()
+        end
+        if IgnoreListFrame and IgnoreListFrame:IsShown() then
+            IgnoreListFrame:Hide()
+        end
     end)
 
     -- Spell-Info: schmale Titelleiste (Titel + Close-Button)
@@ -448,6 +561,62 @@ function createMainWindow()
             end)
         end
     end)
+
+    -- edit ignore list btn (bottom left)
+    f.EditIgnoreListBtn = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+    f.EditIgnoreListBtn:SetText(i18n["edit ignore list"])
+    f.EditIgnoreListBtn:SetSize(f.EditIgnoreListBtn:GetTextWidth() + 20, 22)
+    f.EditIgnoreListBtn:SetPoint("BOTTOMLEFT", 5, 5)
+    f.EditIgnoreListBtn:SetScript("OnClick", function()
+        if IgnoreListFrame:IsShown() then
+            IgnoreListFrame:Hide()
+        else
+            renderIgnoreListRows()
+            IgnoreListFrame:ClearAllPoints()
+            IgnoreListFrame:SetPoint("TOPLEFT", f, "TOPRIGHT", 5, 0)
+            IgnoreListFrame:Show()
+        end
+    end)
+
+    -- ==================
+    -- IGNORE LIST FRAME
+    -- ==================
+    IgnoreListFrame = CreateFrame("Frame", "HMRIgnoreListFrame", UIParent, BackdropTemplateMixin and "BackdropTemplate")
+    IgnoreListFrame:SetSize(400, 200)
+    IgnoreListFrame:SetPoint("TOPLEFT", f, "TOPRIGHT", 5, 0)
+    IgnoreListFrame:SetFrameStrata("DIALOG")
+    IgnoreListFrame:SetMovable(true)
+    IgnoreListFrame:EnableMouse(true)
+    IgnoreListFrame:RegisterForDrag("LeftButton")
+    IgnoreListFrame:SetScript("OnDragStart", IgnoreListFrame.StartMoving)
+    IgnoreListFrame:SetScript("OnDragStop", IgnoreListFrame.StopMovingOrSizing)
+    IgnoreListFrame:SetBackdrop({
+        bgFile = "Interface/Tooltips/UI-Tooltip-Background",
+        edgeFile = "Interface/Tooltips/UI-Tooltip-Border",
+        edgeSize = 16
+    })
+    IgnoreListFrame:SetBackdropColor(0, 0, 0, 0.8)
+    IgnoreListFrame:Hide()
+
+    -- close button
+    local ignoreListCloseBtn = CreateFrame("Button", nil, IgnoreListFrame)
+    ignoreListCloseBtn:SetSize(24, 24)
+    ignoreListCloseBtn:SetPoint("TOPRIGHT")
+    ignoreListCloseBtn:SetNormalTexture("Interface/Buttons/UI-Panel-MinimizeButton-Up")
+    ignoreListCloseBtn:SetPushedTexture("Interface/Buttons/UI-Panel-MinimizeButton-Down")
+    ignoreListCloseBtn:SetHighlightTexture("Interface/Buttons/UI-Panel-MinimizeButton-Highlight", "ADD")
+    ignoreListCloseBtn:SetScript("OnClick", function() IgnoreListFrame:Hide() end)
+
+    -- title
+    local ignoreListTitle = IgnoreListFrame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
+    ignoreListTitle:SetText(i18n["ignore list title"])
+    ignoreListTitle:SetPoint("TOPLEFT", 10, -15)
+
+    -- empty-state label
+    IgnoreListFrame.EmptyLabel = IgnoreListFrame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
+    IgnoreListFrame.EmptyLabel:SetText(i18n["ignore list empty"])
+    IgnoreListFrame.EmptyLabel:SetPoint("CENTER")
+    IgnoreListFrame.EmptyLabel:Hide()
 
     -- initially hide the window after its creation
     f:Hide()
