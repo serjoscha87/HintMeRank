@@ -504,7 +504,9 @@ function createMainWindow()
     SpellInfoFrame:SetScript("OnDragStart", SpellInfoFrame.StartMoving)
     SpellInfoFrame:SetScript("OnDragStop", SpellInfoFrame.StopMovingOrSizing)
     SpellInfoFrame:SetScript("OnHide", function()
-        SpellInfoFrameSpellTooltip:Hide()
+        if SpellInfoFrameSpellTooltip and SpellInfoFrameSpellTooltip.Hide then
+            SpellInfoFrameSpellTooltip:Hide()
+        end
         currentTooltipSpellId = nil
     end)
     SpellInfoFrame:Hide()
