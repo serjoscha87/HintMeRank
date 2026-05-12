@@ -2026,10 +2026,7 @@ SpellsById = {
         [27072] = {
             ["learnAtLvl"] = 69,
             ["rank"] = 13,
-            ["nextRank"] = {
-                ["learnAtLvl"] = 70,
-                ["id"] = 38697
-            }
+            ["nextRank"] = nil
         },
         [27073] = {
             ["learnAtLvl"] = 65,
@@ -2727,11 +2724,11 @@ SpellsById = {
             ["rank"] = 14,
             ["nextRank"] = nil
         },
-        [38697] = {
-            ["learnAtLvl"] = 70,
-            ["rank"] = 14,
-            ["nextRank"] = nil
-        },
+        -- [38697] = { -- learned though book drop
+        --     ["learnAtLvl"] = 70,
+        --     ["rank"] = 14,
+        --     ["nextRank"] = nil
+        -- },
         [38699] = {
             ["learnAtLvl"] = 69,
             ["rank"] = 10,
