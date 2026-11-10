@@ -1,0 +1,32 @@
+## Interface: 16001
+## SavedVariablesPerCharacter: NotificationDelay, SpellIgnoreList
+## Title: HintMeRank
+## Version: 4.1.1
+## Notes: Informs you about the use of outranked spells and adds an analysis window for outranked spells on your actionbars.
+## Author: shadowgrind
+
+funcs.lua
+
+Classes\vanilla\druid.lua
+Classes\vanilla\hunter.lua
+Classes\vanilla\paladin.lua
+Classes\vanilla\warlock.lua
+Classes\vanilla\mage.lua
+Classes\vanilla\warrior.lua
+Classes\vanilla\shaman.lua
+Classes\vanilla\priest.lua
+Classes\vanilla\rogue.lua
+
+Classes\forever\druid.lua
+Classes\forever\rogue.lua
+Classes\forever\warrior.lua
+
+i18n\de.lua
+i18n\en.lua
+i18n\fr.lua
+i18n\es.lua
+
+Debug.lua
+UI_InfoFrame.lua
+
+HintMeRank.lua

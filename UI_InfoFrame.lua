@@ -12,8 +12,8 @@ local function ShowSpellInfo(spellId)
 
     -- Titel setzen (Spell-Name + Rang)
     if SpellInfoFrameTitleLabel then
-        local spellName = GetSpellInfo(spellId)
-        local spellRank = GetSpellSubtext(spellId)
+        local spellName = getSpellInfo(spellId)
+        local spellRank = getSpellSubtext(spellId)
         if spellRank and spellRank ~= "" then
             SpellInfoFrameTitleLabel:SetText((spellName or "") .. " (" .. spellRank .. ")")
         else
@@ -27,7 +27,7 @@ local function ShowSpellInfo(spellId)
     SpellInfoFrameSpellTooltip:SetSpellByID(spellId)
 
     -- Zauberzeit manuell ergänzen
-    local _, _, _, castTime = GetSpellInfo(spellId)
+    local _, _, _, castTime = getSpellInfo(spellId)
     if castTime then
         local castText = castTime == 0 and "Sofort" or string.format("%.1f sek", castTime / 1000)
         SpellInfoFrameSpellTooltip:AddDoubleLine("Zauberzeit:", castText, 0.5, 0.5, 0.5, 1, 1, 1)
@@ -146,7 +146,7 @@ function renderInfoRows()
         local maxRankSpellId = rowTable["maxRankSpellId"]
         local actionButtonInstance = rowTable["actionButtonInstance"]
         
-        local actionName = GetSpellInfo(currentSpellId)
+        local actionName = getSpellInfo(currentSpellId)
 
         --
         -- STEP 1: freshly create all elements (because they do not yet exist)
@@ -236,7 +236,7 @@ function renderInfoRows()
         nextElemPos = infoRowsUi[rowIndex]["spellNameLabel"]:GetStringWidth() + 15
 
         -- PREVIOUS RANK BTN
-        infoRowsUi[rowIndex]["previousRankBtn"]:SetText(GetSpellSubtext(currentSpellId))
+        infoRowsUi[rowIndex]["previousRankBtn"]:SetText(getSpellSubtext(currentSpellId))
         infoRowsUi[rowIndex]["previousRankBtn"]:SetSize(infoRowsUi[rowIndex]["previousRankBtn"]:GetTextWidth()+20, 22)
         infoRowsUi[rowIndex]["previousRankBtn"]:SetPoint("LEFT", nextElemPos, 0)
         infoRowsUi[rowIndex]["previousRankBtn"]:SetScript("OnClick", function()
@@ -256,7 +256,7 @@ function renderInfoRows()
         nextElemPos = nextElemPos + infoRowsUi[rowIndex]["textLabel1"]:GetStringWidth() + 5
 
         -- HIGHTEST RANK BTN
-        infoRowsUi[rowIndex]["highestRankBtn"]:SetText(GetSpellSubtext(maxRankSpellId))
+        infoRowsUi[rowIndex]["highestRankBtn"]:SetText(getSpellSubtext(maxRankSpellId))
         infoRowsUi[rowIndex]["highestRankBtn"]:SetSize(infoRowsUi[rowIndex]["highestRankBtn"]:GetTextWidth()+20, 22)
         infoRowsUi[rowIndex]["highestRankBtn"]:SetPoint("LEFT", nextElemPos, 0)
         infoRowsUi[rowIndex]["highestRankBtn"]:SetScript("OnClick", function()
@@ -267,7 +267,7 @@ function renderInfoRows()
         -- => https://www.wowinterface.com/forums/showthread.php?t=58991 
         -- * "GetSpellLink wasn't added until 2.4.0. It should be available in BCC but it's not in Classic."
         -- * "I don't know about TBCC, but Classic Era doesn't support spell links."
-        if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
+        if not GetSpellLink and not (C_Spell and C_Spell.GetSpellLink) then
             infoRowsUi[rowIndex]["previousRankBtn"]:Disable()
             infoRowsUi[rowIndex]["highestRankBtn"]:Disable()
         end
@@ -281,7 +281,7 @@ function renderInfoRows()
 
         -- UP-RANK BTN
         infoRowsUi[rowIndex]["uprankBtn"]:SetPoint("LEFT", nextElemPos, 0)
-        if IsSpellKnown(maxRankSpellId) then 
+        if isSpellKnown(maxRankSpellId) then
             infoRowsUi[rowIndex]["uprankBtn"]:Enable()
             infoRowsUi[rowIndex]["uprankBtn"]:SetText(i18n["info row chunks"][3])
         else
@@ -290,30 +290,58 @@ function renderInfoRows()
         end
         infoRowsUi[rowIndex]["uprankBtn"]:SetSize(infoRowsUi[rowIndex]["uprankBtn"]:GetTextWidth()+20, 22)
         infoRowsUi[rowIndex]["uprankBtn"]:SetScript("OnClick", function()
-            if IsSpellKnown(maxRankSpellId) then
-                local slot  = nil 
-                if(ActionButton_GetPagedID) then -- old api
-                    slot = ActionButton_GetPagedID(actionButtonInstance) or ActionButton_CalculateAction(actionButtonInstance) or actionButtonInstance:GetAttribute('action') or 0 -- TODO copy paste from main lua file
-                else -- new api
-                    slot = actionButtonInstance.action or nil
+            if isSpellKnown(maxRankSpellId) then
+                if InCombatLockdown and InCombatLockdown() then
+                    print("|cffFF0000[HMR] Zauberleisten können während des Kampfes nicht geändert werden.|r")
+                    return
                 end
-                if (slot and HasAction(slot)) then
-                    ClearCursor()
-                    PickupSpell(maxRankSpellId)
 
-                    PlaceAction(slot)
-                    ClearCursor() 
+                local slot = getActionButtonSlot(actionButtonInstance)
+                if not slot or not HasAction(slot) then
+                    print("|cffFF0000[HMR] Der Aktionsleisten-Slot konnte nicht ermittelt werden.|r")
+                    return
+                end
 
-                    -- just print success message
-                    local linkOldRank, _ = GetSpellLink(currentSpellId)
-                    local linkNewRank, _ = GetSpellLink(maxRankSpellId)
-                    print(string.format(i18n["uprank successful"], linkOldRank, GetSpellSubtext(currentSpellId), linkNewRank, GetSpellSubtext(maxRankSpellId)))
-
-                    -- update ui
-                    -- TODO would be nicer to just remove the current index from the data table and then recall renderInfoRows instead of running the complete logic of collectOutrankedSpells
+                local actionType, actionSpellId = GetActionInfo(slot)
+                if actionType ~= "spell" or actionSpellId ~= currentSpellId then
+                    print("|cffFF0000[HMR] Der Aktionsleisten-Slot enthält nicht mehr den erwarteten Zauber. Bitte Fenster erneut öffnen.|r")
                     collectOutrankedSpells()
                     renderInfoRows()
+                    return
                 end
+                if not PlaceAction then
+                    print("|cffFF0000[HMR] Diese Spielversion stellt die benötigte Zauberleisten-API nicht bereit.|r")
+                    return
+                end
+
+                ClearCursor()
+                local pickedUp, pickupError = pickupSpellToCursor(maxRankSpellId)
+                if not pickedUp then
+                    print("|cffFF0000[HMR] " .. pickupError .. ".|r")
+                    return
+                end
+
+                local placed, placeError = pcall(PlaceAction, slot)
+                ClearCursor()
+                if not placed then
+                    print("|cffFF0000[HMR] Der Zauber konnte nicht auf der Aktionsleiste platziert werden: " .. tostring(placeError) .. "|r")
+                    return
+                end
+
+                local updatedActionType, updatedSpellId = GetActionInfo(slot)
+                if updatedActionType ~= "spell" or updatedSpellId ~= maxRankSpellId then
+                    print("|cffFF0000[HMR] Der Zauber konnte nicht auf der Aktionsleiste ersetzt werden.|r")
+                    collectOutrankedSpells()
+                    renderInfoRows()
+                    return
+                end
+
+                local linkOldRank = getSpellLink(currentSpellId)
+                local linkNewRank = getSpellLink(maxRankSpellId)
+                print(string.format(i18n["uprank successful"], linkOldRank, getSpellSubtext(currentSpellId), linkNewRank, getSpellSubtext(maxRankSpellId)))
+
+                collectOutrankedSpells()
+                renderInfoRows()
             else
                 print(i18n["uprank failed because spell not learned"])
             end
@@ -385,8 +413,8 @@ function renderIgnoreListRows()
             hasEntries = true
             rowIndex = rowIndex + 1
 
-            local spellName = GetSpellInfo(spellId) or ("Spell " .. tostring(spellId))
-            local spellRank = GetSpellSubtext(spellId)
+            local spellName = getSpellInfo(spellId) or ("Spell " .. tostring(spellId))
+            local spellRank = getSpellSubtext(spellId)
             local displayName = (spellRank and spellRank ~= "") and (spellName .. " (" .. spellRank .. ")") or spellName
 
             -- create row if it doesn't exist yet

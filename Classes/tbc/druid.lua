@@ -1,3 +1,6 @@
+HMRLoadedSpellTableVersion = "The Burning Crusade"
+HMRLoadedSpellTableFiles = { "Classes\\tbc\\*.lua" }
+
 local currentClass = select(2, UnitClass("player"))
 
 if (currentClass ~= "DRUID") then

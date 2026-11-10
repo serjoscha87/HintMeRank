@@ -1,3 +1,6 @@
+HMRLoadedSpellTableVersion = "Wrath of the Lich King"
+HMRLoadedSpellTableFiles = { "Classes\\wotlk\\*.lua" }
+
 local currentClass = select(2, UnitClass("player"))
 
 if (currentClass ~= "DRUID") then

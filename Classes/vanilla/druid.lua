@@ -1,3 +1,6 @@
+HMRLoadedSpellTableVersion = "Vanilla"
+HMRLoadedSpellTableFiles = { "Classes\\vanilla\\*.lua" }
+
 local currentClass = select(2, UnitClass("player"))
 
 if (currentClass ~= "DRUID") then

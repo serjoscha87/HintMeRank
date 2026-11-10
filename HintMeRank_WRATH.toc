@@ -23,6 +23,7 @@ i18n\en.lua
 i18n\fr.lua
 i18n\es.lua
 
+Debug.lua
 UI_InfoFrame.lua
 ##UI_ReminderFrame.lua
 

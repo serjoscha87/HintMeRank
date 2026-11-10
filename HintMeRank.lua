@@ -51,16 +51,16 @@ SpellWatchEventBus:SetScript("OnEvent", -- WHEN PLAYER CASTS A SPELL
                 CACHE.notifications[spellId] = nil
             end
 
-            local actionRankRaw = GetSpellSubtext(spellId)
+            local actionRankRaw = getSpellSubtext(spellId)
             if actionRankRaw ~= nil then
                 local rankNumeric = tonumber(string.match(actionRankRaw, '%S+$')) -- pulls out the number from the rank string
                 if rankNumeric ~= nil and isClassSpell(spellId) and isSpellOutranked(spellId) and not isSpellIgnored(spellId) then
-                    local actionName = GetSpellInfo(spellId)
+                    local actionName = getSpellInfo(spellId)
                     local maxRank_SpellId = findMaxAvailableRank(spellId) -- returns the spell-id of the max avail. rank
                     -- 1. (en) chat msg format str:   %s %s used. Max available rank for you at level %d is: %s %s!
                     -- Example out.:                  [Moonfire] Rank X used. Max available rank for you at level Y is [Moonfire] Rank Z
-                    print(string.format(i18n["outranked spell used chat"], GetSpellLink(spellId), actionRankRaw, UnitLevel("PLAYER"), GetSpellLink(maxRank_SpellId), GetSpellSubtext(maxRank_SpellId) or "?"))
-                    fadingFrame:AddMessage(string.format(i18n["outranked spell used fading"], actionName, actionRankRaw, UnitLevel("PLAYER"), GetSpellSubtext(maxRank_SpellId)))
+                    print(string.format(i18n["outranked spell used chat"], getSpellLink(spellId), actionRankRaw, UnitLevel("PLAYER"), getSpellLink(maxRank_SpellId), getSpellSubtext(maxRank_SpellId) or "?"))
+                    fadingFrame:AddMessage(string.format(i18n["outranked spell used fading"], actionName, actionRankRaw, UnitLevel("PLAYER"), getSpellSubtext(maxRank_SpellId)))
                     CACHE.notifications[spellId] = time()
                     -- PlaySound(3175) -- does not work however
                 end
@@ -79,84 +79,33 @@ infoRowsData = {
     -- => this data then will be used by the renderInfoRows function (see UI_InfoFrame)
 }
 
-local ActionBars = {
-    Action = "Main Bar",
-    MultiBarBottomLeft = "Bottom Left Bar",
-    MultiBarBottomRight = "Bottom Right Bar",
-    MultiBarRight = "Second Side Bar",
-    MultiBarLeft = "First Side Bar"
-}
-local ActionBarsNewApi = {
-    Action = "Main Bar", 
-    MultiBarBottomLeft = "Bottom Left Bar", 
-    MultiBarBottomRight = "Bottom Right Bar", 
-    MultiBarRight = "Right Menu Bar", 
-    MultiBarLeft = "Left Menu Bar",
-    MainMenuBar = "Main Menu Bar",
-    MultiBar5 = "Multi Bar 5",
-    MultiBar6 = "Multi Bar 6",
-    MultiBar7 = "Multi Bar 7"
-}
-
 function collectOutrankedSpells() 
     outranked_spells_found = 0
 
     infoRowsData = {} -- just reset the data we collected before
 
-    if ActionButton_GetPagedID then -- old API
-        -- source: https://www.wowinterface.com/forums/showthread.php?t=45731
-        for barName, human_readable_bar_name in pairs(ActionBars) do -- iterate all bars
-            for button_index = 1, 12 do -- 1 to 12: because we got 12 skill slots on each bar
-                local actionButtonInstance = _G[barName .. 'Button' .. button_index]
-                local slot = ActionButton_GetPagedID(actionButtonInstance) or ActionButton_CalculateAction(actionButtonInstance) or actionButtonInstance:GetAttribute('action') or 0
-                if type(slot) == "number" and slot > 0 and HasAction(slot) then
-                    local actionType, spellId, actionSubType = GetActionInfo(slot)
-                    if actionType == 'spell' and isClassSpell(spellId) and isSpellOutranked(spellId) then
-                        local actionRankRaw = GetSpellSubtext(spellId)
-                        if actionRankRaw ~= nil then
-                            local slotRankNumeric = tonumber(string.match(actionRankRaw, '%S+$'))
-                            local maxRank_SpellId = findMaxAvailableRank(spellId)
-                            local maxRankNumeric = Spells[maxRank_SpellId]["rank"]
-                            if slotRankNumeric < maxRankNumeric then
-                                table.insert(infoRowsData, {
-                                    ["currentSpellId"] = spellId,
-                                    ["maxRankSpellId"] = maxRank_SpellId,
-                                    ["actionButtonInstance"] = actionButtonInstance
-                                })
-
-                                outranked_spells_found = outranked_spells_found + 1
-                            end
-                        end
-                    end
-                end
-            end
+    for buttonName, actionButtonInstance in pairs(_G) do
+        local barName, buttonIndex
+        if type(buttonName) == "string" then
+            barName, buttonIndex = buttonName:match("^(.-)Button(%d+)$")
         end
-    else -- new DF (and up) action bar API -- TODO optimize - code is mostly identical to the one above
-        for barName, human_readable_bar_name in pairs(ActionBarsNewApi) do
-            for button_index = 1, 12 do
-                local button = _G[barName .. "Button" .. button_index]
-                if (button) then
-                    local actionButtonInstance = _G[barName .. 'Button' .. button_index]
-                    local slot = button.action or 0
-                    if (slot and HasAction(slot)) then
-                        local actionType, spellId, actionSubType = GetActionInfo(slot)
-                        if actionType == 'spell' and isClassSpell(spellId) and isSpellOutranked(spellId) and not isSpellIgnored(spellId) then
-                            local actionRankRaw = GetSpellSubtext(spellId)
-                            if actionRankRaw ~= nil then
-                                local slotRankNumeric = tonumber(string.match(actionRankRaw, '%S+$'))
-                                local maxRank_SpellId = findMaxAvailableRank(spellId)
-                                local maxRankNumeric = Spells[maxRank_SpellId]["rank"]
-                                if slotRankNumeric < maxRankNumeric then
-                                    table.insert(infoRowsData, {
-                                        ["currentSpellId"] = spellId,
-                                        ["maxRankSpellId"] = maxRank_SpellId,
-                                        ["actionButtonInstance"] = actionButtonInstance
-                                    })
+        local isActionBarButton = barName == "Action" or barName == "MainMenuBar" or (barName and barName:match("^MultiBar"))
+        if isActionBarButton and tonumber(buttonIndex) <= 12 and actionButtonInstance then
+            local slot = getActionButtonSlot(actionButtonInstance)
 
-                                    outranked_spells_found = outranked_spells_found + 1
-                                end
-                            end
-                        end
+            if type(slot) == "number" and slot > 0 and HasAction(slot) then
+                local actionType, spellId = GetActionInfo(slot)
+                if actionType == "spell" and isClassSpell(spellId) and isSpellOutranked(spellId) and not isSpellIgnored(spellId) then
+                    local slotRankNumeric = tonumber(Spells[spellId]["rank"])
+                    local maxRankSpellId = findMaxAvailableRank(spellId)
+                    local maxRankNumeric = maxRankSpellId and tonumber(Spells[maxRankSpellId]["rank"])
+                    if slotRankNumeric and maxRankNumeric and slotRankNumeric < maxRankNumeric then
+                        table.insert(infoRowsData, {
+                            ["currentSpellId"] = spellId,
+                            ["maxRankSpellId"] = maxRankSpellId,
+                            ["actionButtonInstance"] = actionButtonInstance
+                        })
+                        outranked_spells_found = outranked_spells_found + 1
                     end
                 end
             end
@@ -179,7 +128,9 @@ SLASH_HINTMERANK1, SLASH_HINTMERANK2 = '/hmr', '/hintmerank';
 SlashCmdList["HINTMERANK"] = function(paramStr)
     local cmd, cmd_param = paramStr:match("^(%S*)%s*(.-)$")
      -- dump shami skills
-    if cmd == "dump" then
+    if cmd == "debug" then
+        HMR_ShowDebugWindow()
+    elseif cmd == "dump" then
         if cmd_param == "shaman" then
             print ("NYI: dump shaman spells")
         elseif cmd_param == "paladin" then
