@@ -54,3 +54,50 @@ spells[1238070] = {
     ["rank"] = 3,
     ["nextRank"] = nil
 }
+
+-- Forever has two IDs for Lacerate rank 1; both progress into rank 2.
+spells[414647] = {
+    ["learnAtLvl"] = 0,
+    ["rank"] = 1,
+    ["nextRank"] = {
+        ["learnAtLvl"] = 34,
+        ["id"] = 1328616
+    }
+}
+spells[1328617] = {
+    ["learnAtLvl"] = 0,
+    ["rank"] = 1,
+    ["nextRank"] = {
+        ["learnAtLvl"] = 34,
+        ["id"] = 1328616
+    }
+}
+spells[1328616] = {
+    ["learnAtLvl"] = 34,
+    ["rank"] = 2,
+    ["nextRank"] = {
+        ["learnAtLvl"] = 42,
+        ["id"] = 414644
+    }
+}
+spells[414644] = {
+    ["learnAtLvl"] = 42,
+    ["rank"] = 3,
+    ["nextRank"] = {
+        ["learnAtLvl"] = 50,
+        ["id"] = 1235826
+    }
+}
+spells[1235826] = {
+    ["learnAtLvl"] = 50,
+    ["rank"] = 4,
+    ["nextRank"] = {
+        ["learnAtLvl"] = 58,
+        ["id"] = 1235827
+    }
+}
+spells[1235827] = {
+    ["learnAtLvl"] = 58,
+    ["rank"] = 5,
+    ["nextRank"] = nil
+}
